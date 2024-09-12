@@ -1,0 +1,53 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px; 
+    justify-content: flex-start; 
+  }
+  
+  .action-buttons .btn {
+    display: flex;
+    align-items: center; 
+  }
+  .acciones-header{
+    text-align: center;
+  }
+
+  .mat-header-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }  
+  .estado-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fa-circle-xmark{
+color: red
+  }
+
+  .fa-circle-check{
+color: #198754;}
+
+  .fa-circle-question{
+    color: rgb(33, 144, 235);
+  }
+
+  .disabled-row {
+    opacity: 0.5;
+    pointer-events: none;
+  }
