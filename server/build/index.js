@@ -13,7 +13,6 @@ const edificiosRoutes_1 = __importDefault(require("./routes/edificiosRoutes"));
 const rolesRoutes_1 = __importDefault(require("./routes/rolesRoutes"));
 const responsablesRoutes_1 = __importDefault(require("./routes/responsablesRoutes"));
 const reservasRoutes_1 = __importDefault(require("./routes/reservasRoutes"));
-const canchasRoutes_1 = __importDefault(require("./routes/canchasRoutes")); 
 class Server {
     constructor() {
         this.app = (0, express_1.default)();
@@ -33,7 +32,6 @@ class Server {
         this.app.use('/roles', rolesRoutes_1.default);
         this.app.use('/responsables', responsablesRoutes_1.default);
         this.app.use('/reservas', reservasRoutes_1.default);
-        this.app.use('/canchas', canchasRoutes_1.default);
     }
     start() {
         this.app.listen(this.app.get('port'), () => {
