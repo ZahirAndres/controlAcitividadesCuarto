@@ -52,6 +52,11 @@ import { AdminEdificiosComponent } from './components/admin-edificios/admin-edif
 import { AdminRolesComponent } from './components/admin-roles/admin-roles.component';
 import { EdificiosComponent } from './components/edificios/edificios.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { CuatroCeroCuatroComponent } from './components/cuatro-cero-cuatro/cuatro-cero-cuatro.component';
+import { VerificarCorreoComponent } from './components/verificar-correo/verificar-correo.component';
+import { CanchaListComponent } from './components/cancha-list/cancha-list.component';
 
 // Services
 import { ReservasService } from './services/reservas.service';
@@ -66,10 +71,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { CustomMatPaginatorIntl } from './utilMaterial/CustomMatPaginatorIntl ';
 import { AscensoComponent } from './components/ascenso/ascenso.component';
 import { DateFormatPipe } from './date-format.pipe';
-import { ConfirmDeleteComponent } from './components/confirm-delete/confirm-delete.component';
-import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { CuatroCeroCuatroComponent } from './components/cuatro-cero-cuatro/cuatro-cero-cuatro.component';
-import { VerificarCorreoComponent } from './components/verificar-correo/verificar-correo.component';
+import { CanchaAddComponent } from './components/cancha-add/cancha-add.component';
+import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.component';
 
 
 
@@ -101,7 +104,11 @@ import { VerificarCorreoComponent } from './components/verificar-correo/verifica
     ConfirmDeleteComponent,
     ConfirmDialogComponent,
     CuatroCeroCuatroComponent,
-    VerificarCorreoComponent
+    VerificarCorreoComponent,
+    CanchaListComponent,
+    CanchaAddComponent,
+    CanchaEditComponent
+    
   ],
   imports: [
     BrowserModule,

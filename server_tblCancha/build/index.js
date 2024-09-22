@@ -13,7 +13,7 @@ const edificiosRoutes_1 = __importDefault(require("./routes/edificiosRoutes"));
 const rolesRoutes_1 = __importDefault(require("./routes/rolesRoutes"));
 const responsablesRoutes_1 = __importDefault(require("./routes/responsablesRoutes"));
 const reservasRoutes_1 = __importDefault(require("./routes/reservasRoutes"));
-const canchasRoutes_1 = __importDefault(require("./routes/canchasRoutes")); 
+const canchasRoutes_1 = __importDefault(require("./routes/canchasRoutes")); // Agrega esta línea
 class Server {
     constructor() {
         this.app = (0, express_1.default)();

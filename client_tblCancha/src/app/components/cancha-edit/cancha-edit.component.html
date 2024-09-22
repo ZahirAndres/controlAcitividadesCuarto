@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>Editar Cancha</h2>
+<form (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput [(ngModel)]="cancha.nombre" name="nombre" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Latitud</mat-label>
+    <input type="number" matInput [(ngModel)]="cancha.latitud" name="latitud" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Longitud</mat-label>
+    <input type="number" matInput [(ngModel)]="cancha.longitud" name="longitud" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Precio</mat-label>
+    <input type="number" matInput [(ngModel)]="cancha.precio" name="precio" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput [(ngModel)]="cancha.descripcion" name="descripcion" required></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Estado</mat-label>
+    <input matInput [(ngModel)]="cancha.estado" name="estado" required>
+  </mat-form-field>
+
+  <div class="dialog-actions">
+    <button mat-button (click)="onNoClick()" type="button">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>

@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Agregar Cancha</h2>
+<form (ngSubmit)="onSubmit()" #canchaForm="ngForm">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput required [(ngModel)]="cancha.nombre" name="nombre"> 
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Precio</mat-label>
+      <input matInput required type="number" [(ngModel)]="cancha.precio" name="precio">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="cancha.descripcion" name="descripcion"></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" type="button">Cancelar</button>
+    <button mat-button type="submit">Agregar</button>
+  </mat-dialog-actions>
+</form>
