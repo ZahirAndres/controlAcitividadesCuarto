@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-cancha-edit',
   templateUrl: './cancha-edit.component.html',
-  styleUrls: ['./cancha-edit.component.css'] // Asegúrate de que este sea "styleUrls" y no "styleUrl"
+  styleUrls: ['./cancha-edit.component.css'] 
 })
 export class CanchaEditComponent {
   cancha: Cancha;
@@ -25,7 +25,13 @@ export class CanchaEditComponent {
 
   onSubmit(): void {
     if (this.cancha.idCancha !== undefined) {
-      this.canchaService.updateCancha(this.cancha.idCancha, this.cancha).subscribe(() => {
+      const canchaToUpdate = { ...this.cancha };
+  
+      // Proteger las propiedades idResp y nombUsuario
+      delete canchaToUpdate.idResp;
+      delete canchaToUpdate.nombUsuario;
+  
+      this.canchaService.updateCancha(canchaToUpdate.idCancha!, canchaToUpdate).subscribe(() => {
         this.dialogRef.close(true);
       }, err => {
         console.error('Error al actualizar la cancha:', err);

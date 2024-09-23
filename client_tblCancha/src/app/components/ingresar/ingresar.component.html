@@ -130,6 +130,7 @@
                     <option class="o" value="" selected>Seleccione un rol*</option>
                     <option *ngFor="let rol of roles" [value]="rol.idRoles">{{rol.rol}}</option>
                 </select>
+                
                 <div *ngIf="existingUsernameError" class="error-message">{{ existingUsernameError }}</div>
                 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
                 <div class="btn">

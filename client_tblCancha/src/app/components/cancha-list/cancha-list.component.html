@@ -12,7 +12,7 @@
           <p class="card-text"><strong>Precio de renta:</strong> ${{ cancha.precio }}</p>
           <p class="card-text"><strong>Descripción:</strong> {{ cancha.descripcion }}</p>
           <p class="card-text"><strong>Estado:</strong> {{ cancha.estado }}</p>
-          <p class="card-text"><strong>Propietario:</strong> {{ cancha.idResp }}</p>
+          <p class="card-text"><strong>Propietario:</strong> {{ cancha.nombUsuario }}</p>
           <div class="d-flex justify-content-end mt-3">
             <button (click)="openConfirmDialog(cancha.idCancha!)" type="button" class="btn btn-danger">
               <i class="bi bi-trash"></i> Eliminar
@@ -53,9 +53,9 @@
         <td mat-cell *matCellDef="let cancha"> {{ cancha.estado }} </td>
       </ng-container>
 
-      <ng-container matColumnDef="idResp">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> IdResp </th>
-        <td mat-cell *matCellDef="let cancha"> {{ cancha.idResp }} </td>
+      <ng-container matColumnDef="usuario">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Propietario </th>
+        <td mat-cell *matCellDef="let cancha"> {{ cancha.nombUsuario }} </td>
       </ng-container>
       <!-- Acciones Column -->
       <ng-container matColumnDef="acciones">

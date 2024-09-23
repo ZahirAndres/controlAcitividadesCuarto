@@ -7,4 +7,5 @@ export interface Cancha {
     descripcion?: string;
     estado?: string;
     idResp?: number;
+    nombUsuario?: string;
 }

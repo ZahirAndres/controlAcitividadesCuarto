@@ -8,6 +8,7 @@ import { CanchaAddComponent } from '../cancha-add/cancha-add.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { CanchaEditComponent } from '../cancha-edit/cancha-edit.component';
+import { ResponsableService } from '../../services/responsable.service';
 
 @Component({
   selector: 'app-cancha-list',
@@ -21,7 +22,7 @@ export class CanchaListComponent implements OnInit, AfterViewInit {
     'precio',
     'descripcion',
     'estado',
-    'idResp',
+    'usuario',
     'acciones',
   ];
   dataSource!: MatTableDataSource<Cancha>;
@@ -31,11 +32,13 @@ export class CanchaListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private canchaService: CanchaService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private responsableService: ResponsableService
   ) {}
 
   ngOnInit(): void {
     this.getCanchas();
+    this.responsableService.getUserId();
   }
 
   ngAfterViewInit() {
@@ -46,9 +49,11 @@ export class CanchaListComponent implements OnInit, AfterViewInit {
   }
 
   getCanchas(): void {
+    const idResp = this.responsableService.getUserId(); 
     this.canchaService.getCanchas().subscribe((data: Cancha[]) => {
-      this.canchas = data;
-      this.dataSource = new MatTableDataSource(data);
+      // Filtra las canchas por el ID del responsable
+      this.canchas = data.filter(cancha => cancha.idResp === idResp);
+      this.dataSource = new MatTableDataSource(this.canchas);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

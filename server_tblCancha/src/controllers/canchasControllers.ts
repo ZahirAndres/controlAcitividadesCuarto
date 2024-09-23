@@ -5,7 +5,7 @@ class CanchasControllers {
     // Obtener todas las canchas
     public async index(req: Request, res: Response): Promise<void> {
         try {
-            const canchas = await pool.query('SELECT * FROM cancha');
+            const canchas = await pool.query('SELECT C.*, R.nombUsuario FROM cancha as C INNER JOIN responsable as R ON C.idResp = R.idResp');
             res.json(canchas);
         } catch (error) {
             res.status(500).json({ message: 'Error al obtener las canchas', error });
@@ -16,7 +16,7 @@ class CanchasControllers {
     public async getCancha(req: Request, res: Response): Promise<void> {
         const { idCancha } = req.params;
         try {
-            const result = await pool.query('SELECT * FROM cancha WHERE idCancha = ?', [idCancha]);
+            const result = await pool.query('SELECT C.*, R.nombUsuario FROM cancha as C INNER JOIN responsable as R ON C.idResp = R.idResp WHERE idCancha = ?', [idCancha]);
             if (result.length > 0) {
                 res.json(result[0]);
             } else {

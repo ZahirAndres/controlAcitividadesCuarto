@@ -19,7 +19,7 @@ class CanchasControllers {
     index(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const canchas = yield database_1.default.query('SELECT * FROM cancha');
+                const canchas = yield database_1.default.query('SELECT C.*, R.nombUsuario FROM cancha as C INNER JOIN responsable as R ON C.idResp = R.idResp');
                 res.json(canchas);
             }
             catch (error) {
@@ -32,7 +32,7 @@ class CanchasControllers {
         return __awaiter(this, void 0, void 0, function* () {
             const { idCancha } = req.params;
             try {
-                const result = yield database_1.default.query('SELECT * FROM cancha WHERE idCancha = ?', [idCancha]);
+                const result = yield database_1.default.query('SELECT C.*, R.nombUsuario FROM cancha as C INNER JOIN responsable as R ON C.idResp = R.idResp WHERE idCancha = ?', [idCancha]);
                 if (result.length > 0) {
                     res.json(result[0]);
                 }
