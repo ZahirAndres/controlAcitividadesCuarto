@@ -1,0 +1,44 @@
+/* Estilos para el formulario de edición de cancha */
+.edit-cancha-form {
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  mat-form-field {
+    margin-bottom: 16px;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  .cancel-button {
+    color: #f44336; /* Color rojo para el botón de cancelar */
+  }
+  
+  .submit-button {
+    color: #fff;
+    background-color: #4caf50; /* Color verde para el botón de guardar */
+  }
+  
+  button.mat-button {
+    margin-left: 8px;
+  }
+  
+  .mat-form-field.mat-focused .mat-form-field-ripple {
+    background-color: #3f51b5; /* Color del ripple cuando el campo está enfocado */
+  }
+  
+  .mat-input-element {
+    font-size: 16px;
+  }
+  
+  .mat-form-field-label {
+    color: #3f51b5; /* Color de la etiqueta del campo */
+  }
+  

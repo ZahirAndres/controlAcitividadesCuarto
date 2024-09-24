@@ -15,7 +15,9 @@ export class CanchaAddComponent {
     precio: undefined,
     descripcion: '',
     estado: 'Disponible',
-    idResp: undefined
+    idResp: undefined,
+    latitud: undefined,
+    longitud: undefined
   };
 
   constructor(
@@ -27,6 +29,11 @@ export class CanchaAddComponent {
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onLocationSelected(location: { lat: number, lng: number }): void {
+    this.cancha.latitud = location.lat;
+    this.cancha.longitud = location.lng;
   }
 
   onSubmit(): void {

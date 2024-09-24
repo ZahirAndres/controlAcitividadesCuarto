@@ -57,6 +57,7 @@ import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dial
 import { CuatroCeroCuatroComponent } from './components/cuatro-cero-cuatro/cuatro-cero-cuatro.component';
 import { VerificarCorreoComponent } from './components/verificar-correo/verificar-correo.component';
 import { CanchaListComponent } from './components/cancha-list/cancha-list.component';
+import { SelecMapaComponent } from './components/selec-mapa/selec-mapa.component';
 
 // Services
 import { ReservasService } from './services/reservas.service';
@@ -73,6 +74,8 @@ import { AscensoComponent } from './components/ascenso/ascenso.component';
 import { DateFormatPipe } from './date-format.pipe';
 import { CanchaAddComponent } from './components/cancha-add/cancha-add.component';
 import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 
 
 
@@ -107,7 +110,8 @@ import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.compon
     VerificarCorreoComponent,
     CanchaListComponent,
     CanchaAddComponent,
-    CanchaEditComponent
+    CanchaEditComponent,
+    SelecMapaComponent
     
   ],
   imports: [
@@ -137,7 +141,8 @@ import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.compon
     MatDialogModule,
     MatMenuModule,
     MatTooltipModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    LeafletModule
   ],
   providers: [
     ReservasService,
