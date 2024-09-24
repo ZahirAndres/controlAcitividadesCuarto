@@ -289,5 +289,24 @@ class ResponsablesControllers {
             }
         });
     }
+    //Método para actualzar la ubicación del usuario
+    updateUserLocation(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idResp } = req.params;
+            const { lat, lng } = req.body;
+            try {
+                const result = yield database_1.default.query('UPDATE responsable SET latitud = ?, longitud = ? WHERE idResp = ?', [lat, lng, idResp]);
+                if (result.affectedRows > 0) {
+                    res.json({ message: 'Localización actualizada del responsable' });
+                }
+                else {
+                    res.status(404).json({ message: 'Responsable no encontrado' });
+                }
+            }
+            catch (error) {
+                res.status(500).json({ message: 'Error al actualizar la ubicación' });
+            }
+        });
+    }
 }
 exports.responsablesControllers = new ResponsablesControllers();

@@ -39,6 +39,7 @@ export class CanchaListComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getCanchas();
     this.responsableService.getUserId();
+    this.updateUserLocation();
   }
 
   ngAfterViewInit() {
@@ -58,6 +59,33 @@ export class CanchaListComponent implements OnInit, AfterViewInit {
       this.dataSource.sort = this.sort;
     });
   }
+
+  updateUserLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        this.updateLocationInDatabase(lat, lng);
+      }, error => {
+        console.error('Error obteniendo la geolocalización', error);
+      });
+    } else {
+      console.log('Geolocalización no soportada en este navegador');
+    }
+  }
+
+  updateLocationInDatabase(lat: number, lng: number): void {
+    const idResp = this.responsableService.getUserId();
+    this.responsableService.updateUserLocation(idResp, lat, lng).subscribe(
+      response => {
+        console.log('Ubicación actualizada en la base de datos', response);
+      },
+      error => {
+        console.error('Error actualizando la ubicación en la base de datos', error);
+      }
+    );
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

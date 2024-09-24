@@ -20,11 +20,12 @@ class ResponsablesRoutes {
         this.router.put('/:idResp', responsablesControllers.updateResponsable);
         this.router.put('/contrasenia/:idResp', responsablesControllers.updateContrasenia); // Nueva ruta para actualizar contraseña
         // Nueva ruta para enviar correo de ascenso
-    this.router.post('/ascenso/correo', responsablesControllers.enviarCorreoAscenso);
-    //Nueva ruta para verificar el correo
-    this.router.post('/enviar-verificacion-correo', responsablesControllers.enviarCorreoVerificacion);
-    this.router.get('/verificar-correo/:token', responsablesControllers.verificarToken);
-
+        this.router.post('/ascenso/correo', responsablesControllers.enviarCorreoAscenso);
+        //Nueva ruta para verificar el correo
+        this.router.post('/enviar-verificacion-correo', responsablesControllers.enviarCorreoVerificacion);
+        this.router.get('/verificar-correo/:token', responsablesControllers.verificarToken);
+        // Ruta para actualzar la latitud y longitud
+        this.router.put('/usuarios/:idResp/ubicacion', responsablesControllers.updateUserLocation);
     }
 }
 const responsableRoutes = new ResponsablesRoutes();
