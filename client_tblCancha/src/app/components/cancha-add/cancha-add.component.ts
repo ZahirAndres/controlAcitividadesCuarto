@@ -27,29 +27,39 @@ export class CanchaAddComponent {
     private responsableService: ResponsableService
   ) {}
 
-  onNoClick(): void {
-    this.dialogRef.close();
+  // Método que actualiza las coordenadas cuando se selecciona un punto en el mapa
+  actualizarCoordenadas(event: { lat: number, lng: number }) {
+    this.cancha.latitud = event.lat;
+    this.cancha.longitud = event.lng;
+    console.log('Coordenadas actualizadas:', this.cancha.latitud, this.cancha.longitud); // Verificar coordenadas
   }
 
-  onLocationSelected(location: { lat: number, lng: number }): void {
-    this.cancha.latitud = location.lat;
-    this.cancha.longitud = location.lng;
-  }
-
+  // Método para manejar el envío del formulario
   onSubmit(): void {
     const idResp = this.responsableService.getUserId();
     if (idResp) {
-      this.cancha.idResp = idResp;
+      this.cancha.idResp = idResp; // Asociar la cancha con el responsable
 
-      this.canchaService.saveCancha(this.cancha).subscribe(() => {
-        this.dialogRef.close(true);
-      }, err => {
-        console.error('Error al guardar la cancha:', err);
-        this.dialogRef.close(false);
+      console.log('Datos enviados al servicio:', this.cancha); // Verificar datos enviados
+
+      // Llamar al servicio para guardar la cancha
+      this.canchaService.saveCancha(this.cancha).subscribe({
+        next: () => {
+          console.log('Cancha guardada con éxito');
+          this.dialogRef.close(true);
+        },
+        error: (err) => {
+          console.error('Error al guardar la cancha:', err);
+          this.dialogRef.close(false);
+        }
       });
     } else {
       console.error('No se pudo obtener el id del responsable.');
       this.dialogRef.close(false);
     }
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

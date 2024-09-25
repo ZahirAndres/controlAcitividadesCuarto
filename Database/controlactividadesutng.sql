@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-09-2024 a las 03:41:03
+-- Tiempo de generación: 26-09-2024 a las 00:38:55
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `cancha` (
   `idCancha` int(11) NOT NULL,
-  `Nombre` varchar(70) NOT NULL,
+  `nombre` varchar(70) NOT NULL,
   `latitud` decimal(10,8) NOT NULL,
   `longitud` decimal(11,8) NOT NULL,
-  `Precio` float NOT NULL,
-  `Descripción` varchar(250) DEFAULT NULL,
-  `Estado` varchar(15) DEFAULT NULL,
+  `precio` float NOT NULL,
+  `descripcion` varchar(250) DEFAULT NULL,
+  `estado` varchar(15) DEFAULT NULL,
   `idResp` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -42,8 +42,11 @@ CREATE TABLE `cancha` (
 -- Volcado de datos para la tabla `cancha`
 --
 
-INSERT INTO `cancha` (`idCancha`, `Nombre`, `latitud`, `longitud`, `Precio`, `Descripción`, `Estado`, `idResp`) VALUES
-(1, 'Cancha de Fútbol', 19.43260800, -99.13320900, 500, 'Cancha de césped artificial', 'Disponible', 1);
+INSERT INTO `cancha` (`idCancha`, `nombre`, `latitud`, `longitud`, `precio`, `descripcion`, `estado`, `idResp`) VALUES
+(1, 'Cancha de Fútbol', 19.43260800, -99.13320900, 5002, 'Cancha de césped artificial', 'Disponible', 1),
+(22, 'Nombre', 0.00000000, 0.00000000, 234, 'dsfdsf', 'Disponible', 4),
+(27, 'dfsrgf', 21.18014281, -100.92974294, 432243, 'fghv', 'Disponible', 1),
+(28, '', 21.13371931, -100.93351086, 0, '', 'Disponible', 1);
 
 -- --------------------------------------------------------
 
@@ -55,6 +58,13 @@ CREATE TABLE `edificio` (
   `idEdificio` int(11) NOT NULL,
   `nombEdificio` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `edificio`
+--
+
+INSERT INTO `edificio` (`idEdificio`, `nombEdificio`) VALUES
+(1, 'a');
 
 --
 -- Disparadores `edificio`
@@ -107,17 +117,20 @@ CREATE TABLE `responsable` (
   `idRoles` int(11) DEFAULT NULL,
   `correoVerificado` tinyint(1) DEFAULT 0,
   `tokenVerificacion` varchar(255) DEFAULT NULL,
-  `tokenExpiracion` datetime DEFAULT NULL
+  `tokenExpiracion` datetime DEFAULT NULL,
+  `longitud` double DEFAULT NULL,
+  `latitud` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `responsable`
 --
 
-INSERT INTO `responsable` (`idResp`, `nombUsuario`, `contrasenia`, `nombres`, `appPaterno`, `appMaterno`, `telefono`, `correoElec`, `numControl`, `grupo`, `idRoles`, `correoVerificado`, `tokenVerificacion`, `tokenExpiracion`) VALUES
-(1, 'MrMexico2014', 0x4c696e75783230323421, 'Zahir Andrés', 'Rodríguez', 'Mora', '4281061609', 'rodriguez.mora.zahir.15@gmail.com', '1223100456', 'GDS0632', 4, 0, NULL, NULL),
-(2, 'otro', 0x4c696e75783230323421, 'Ejemplo', 'E', 'J', '4281234567', 'mrmexico2014@gmail.com', '1223456', 'GDS0632', 2, 0, NULL, NULL),
-(3, 'administrador', 0x4c696e75783230323421, 'Samantha', 'Rodriguez', 'Mora', '4281088148', 'samantha@gmail.com', '12234122', 'GDS0632', 1, 0, NULL, NULL);
+INSERT INTO `responsable` (`idResp`, `nombUsuario`, `contrasenia`, `nombres`, `appPaterno`, `appMaterno`, `telefono`, `correoElec`, `numControl`, `grupo`, `idRoles`, `correoVerificado`, `tokenVerificacion`, `tokenExpiracion`, `longitud`, `latitud`) VALUES
+(1, 'MrMexico2014', 0x4c696e75783230323421, 'Zahir Andrés', 'Rodríguez', 'Mora', '4281061609', 'rodriguez.mora.zahir.15@gmail.com', '1223100456', 'GDS0632', 4, 0, NULL, NULL, -100.930421, 21.1673),
+(2, 'otro', 0x4c696e75783230323421, 'Ejemplo', 'E', 'J', '4281234567', 'mrmexico2014@gmail.com', '1223456', 'GDS0632', 2, 0, NULL, NULL, 0, 0),
+(3, '', 0x4c696e75783230323421, '', '', NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0),
+(4, 'propietario', 0x4c696e75783230323421, 'Maestro', 'Hernández', 'De Artes', '4342343243', 'rodrigueewrwerwea.zahir.15@gmail.com', NULL, NULL, 2, 0, NULL, NULL, 0, 0);
 
 --
 -- Disparadores `responsable`
@@ -164,9 +177,9 @@ CREATE TABLE `rol` (
 
 INSERT INTO `rol` (`idRoles`, `rol`) VALUES
 (1, 'Administrador'),
-(2, 'Boss'),
-(3, 'Usuario'),
-(4, 'Visitante');
+(4, 'Boss'),
+(3, 'Propietario'),
+(2, 'Usuario');
 
 --
 -- Disparadores `rol`
@@ -232,13 +245,13 @@ ALTER TABLE `rol`
 -- AUTO_INCREMENT de la tabla `cancha`
 --
 ALTER TABLE `cancha`
-  MODIFY `idCancha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idCancha` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `edificio`
 --
 ALTER TABLE `edificio`
-  MODIFY `idEdificio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idEdificio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `reservas`
@@ -250,7 +263,7 @@ ALTER TABLE `reservas`
 -- AUTO_INCREMENT de la tabla `responsable`
 --
 ALTER TABLE `responsable`
-  MODIFY `idResp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idResp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `rol`
