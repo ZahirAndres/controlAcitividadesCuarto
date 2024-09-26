@@ -1,32 +1,78 @@
-<h2 mat-dialog-title>Agregar Cancha</h2>
-<form (ngSubmit)="onSubmit()" #canchaForm="ngForm">
+<h2 mat-dialog-title class="tit">--- Agregar Cancha ---</h2>
+<form (ngSubmit)="onSubmit()" #canchaForm="ngForm" class="cancha-form">
+
   <mat-dialog-content>
-    <mat-form-field>
-      <mat-label>Nombre</mat-label>
-      <input matInput required [(ngModel)]="cancha.nombre" name="nombre"> 
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Precio</mat-label>
-      <input matInput required type="number" [(ngModel)]="cancha.precio" name="precio">
-    </mat-form-field>
-    <mat-form-field>
+
+   
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput required [(ngModel)]="cancha.nombre" name="nombre" #nombre="ngModel"
+               minlength="5" pattern="^[A-Za-z\s]+$">
+        <mat-error *ngIf="nombre.errors?.['required'] && nombre.touched">
+          Nombre es obligatorio
+        </mat-error>
+        <mat-error *ngIf="nombre.errors?.['minlength'] && nombre.touched">
+          El nombre debe tener al menos 5 caracteres
+        </mat-error>
+        <mat-error *ngIf="nombre.errors?.['pattern'] && nombre.touched">
+          El nombre no debe contener números
+        </mat-error>
+      </mat-form-field>
+      
+      <mat-form-field>
+        <mat-label>Precio</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.precio" name="precio" min="0" #precio="ngModel">
+        <mat-error *ngIf="precio.invalid && precio.touched">
+          Precio debe ser un número positivo
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="full-width">
       <mat-label>Descripción</mat-label>
-      <textarea matInput [(ngModel)]="cancha.descripcion" name="descripcion"></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Latitud</mat-label>
-      <input matInput required type="number" [(ngModel)]="cancha.latitud" name="latitud">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Longitud</mat-label>
-      <input matInput required type="number" [(ngModel)]="cancha.longitud" name="longitud">
+      <textarea matInput [(ngModel)]="cancha.descripcion" name="descripcion" required minlength="10" #descripcion="ngModel"></textarea>
+      <mat-error *ngIf="descripcion.invalid && descripcion.touched">
+        La descripción debe tener al menos 10 caracteres
+      </mat-error>
     </mat-form-field>
 
+   
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Latitud</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.latitud" name="latitud" #latitud="ngModel">
+        <mat-error *ngIf="latitud.invalid && latitud.touched">
+          Latitud es obligatoria y debe ser un número
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Longitud</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.longitud" name="longitud" #longitud="ngModel">
+        <mat-error *ngIf="longitud.invalid && longitud.touched">
+          Longitud es obligatoria y debe ser un número
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+ 
     Componente de selección de mapa 
     <app-selec-mapa (coordenadasSeleccionadas)="actualizarCoordenadas($event)"></app-selec-mapa>
+
   </mat-dialog-content>
+
   <mat-dialog-actions>
-    <button mat-button (click)="onNoClick()" type="button">Cancelar</button>
-    <button mat-button type="submit">Agregar</button>
+   
+    <button mat-button (click)="onNoClick()" type="button" class="cancel-button">
+      <i class="fas fa-trash"></i>
+      Cancelar
+    </button>
+
+   
+    <button mat-button type="submit" class="submit-button" [disabled]="canchaForm.invalid">
+      <i class="fas fa-plus-circle"></i>
+      Agregar
+    </button>
   </mat-dialog-actions>
+
 </form>

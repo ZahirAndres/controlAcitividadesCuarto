@@ -39,7 +39,7 @@ export class SelecMapaComponent {
     
     const ui = H.ui.UI.createDefault(this.map, defaultLayers);
 
-   
+  
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const lat = position.coords.latitude;
@@ -54,7 +54,7 @@ export class SelecMapaComponent {
 
   
     this.map.addEventListener('tap', (evt: any) => {
-     
+    
       const coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
 
       

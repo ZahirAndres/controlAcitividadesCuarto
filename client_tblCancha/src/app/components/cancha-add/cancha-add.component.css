@@ -1,42 +1,88 @@
+/* Clase general del formulario */
 .cancha-form {
-    width: 100%;
-  }
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.tit{
+  font-family: Snap ITC;
+  font-size: 25px;
+  color: #571612;
   
-  .full-width {
-    width: 100%;
-  }
-  
-  mat-form-field {
-    margin-bottom: 16px;
-  }
-  
-  mat-dialog-actions {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 16px;
-  }
-  
-  .cancel-button {
-    color: #f44336; /* Rojo */
-  }
-  
-  .submit-button {
-    color: #4caf50; /* Verde */
-  }
-  
-  button.mat-button {
-    margin-left: 8px;
-  }
-  
-  .mat-form-field.mat-focused .mat-form-field-ripple {
-    background-color: #3f51b5; /* Cambiar el color al obtener foco */
-  }
-  
-  .mat-input-element {
-    font-size: 16px;
-  }
-  
-  .mat-form-field-label {
-    color: #3f51b5; /* Color de la etiqueta */
-  }
-  
+}
+/* Fila que contiene dos campos */
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px; /* Espacio entre los campos */
+  margin-bottom: 16px;
+}
+
+.row mat-form-field {
+  flex: 1; /* Cada campo ocupa la mitad del ancho */
+}
+
+/* Campos que ocupan una fila completa */
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+/* Estilo de las acciones del diálogo */
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+
+.boc {
+  background: #f44336;  
+  color: white;           
+  font-size: 1.5rem;
+}
+
+
+.bov{
+  background:  #4caf50; 
+  color: white;           
+  font-size: 1.5rem;
+}
+
+/* Estilo para espaciado entre botones */
+button.mat-button {
+  margin-left: 8px;
+}
+
+/* Estilo de foco para campos de entrada */
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #3f51b5;  /* Cambiar color al obtener foco */
+}
+
+.mat-input-element {
+  font-size: 16px;
+}
+
+.mat-form-field-label {
+  color: #3f51b5;  /* Color de la etiqueta */
+}
+
+/* Ajuste de tamaño del cuadro de diálogo */
+.mat-dialog-container {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+mat-dialog-title {
+  font-size: 24px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: bold;
+}
+
+/* Mapa */
+app-selec-mapa {
+  margin-top: 20px;
+  width: 100%;
+}

@@ -2,9 +2,11 @@
   <button mat-fab color="primary" class="floating-button" (click)="openAddDialog()">
     <i class="bi bi-plus"></i> 
   </button>
-  
+  <button mat-fab color="primary" class="floating-button-locate" (click)="updateUserLocation()">
+    <i class="bi bi-binoculars-fill"></i> 
+  </button>
   <div class="row">
-    <div *ngFor="let cancha of canchas" class="col-md-4 mb-4">
+    <div *ngFor="let cancha of nearbyCanchas" class="col-md-4 mb-4">
       <div class="card h-100"> 
         <div class="card-body">
           <h5 class="card-title text-center">{{ cancha.nombre }}</h5>

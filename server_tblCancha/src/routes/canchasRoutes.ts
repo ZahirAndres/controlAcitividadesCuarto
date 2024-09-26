@@ -19,7 +19,8 @@ class CanchaRoutes {
         this.router.delete('/:idCancha', canchasControllers.delete);
         // Ruta para actualizar una cancha por ID
         this.router.put('/:idCancha', canchasControllers.updateCancha);
-        
+        //selecionar tres cnachas cercanas
+        this.router.get('/nearby/:lat/:lon', canchasControllers.getThreeCanchas);
     }
 }
 
