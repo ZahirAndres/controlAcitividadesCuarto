@@ -5,6 +5,13 @@
   <button mat-fab color="primary" class="floating-button-locate" (click)="updateUserLocation()">
     <i class="bi bi-binoculars-fill"></i> 
   </button>
+
+  <!-- Agrega este botón en la parte adecuada de tu HTML -->
+<button mat-button (click)="toggleActualizar()" class="floating-button-canchas">
+  {{ actualizar ? 'Detener Actualización' : 'Iniciar Actualización' }}
+</button>
+
+
   <div class="row">
     <div *ngFor="let cancha of nearbyCanchas" class="col-md-4 mb-4">
       <div class="card h-100"> 
@@ -16,15 +23,14 @@
           <p class="card-text"><strong>Estado:</strong> {{ cancha.estado }}</p>
           <p class="card-text"><strong>Propietario:</strong> {{ cancha.nombUsuario }}</p>
           <div class="d-flex justify-content-end mt-3">
-            <button (click)="openConfirmDialog(cancha.idCancha!)" type="button" class="btn btn-danger">
-              <i class="bi bi-trash"></i> Eliminar
-            </button>
+            <button class="btn btn-info" routerLink="/mapa" routerLinkActive="active">Ver</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
+  
   <!-- Tabla de canchas -->
   <div class="body table-responsive mt-4">
     <mat-form-field>

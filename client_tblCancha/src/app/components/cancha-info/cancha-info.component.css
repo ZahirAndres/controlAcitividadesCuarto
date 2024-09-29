@@ -1,0 +1,13 @@
+/* cancha-info.component.css */
+:host {
+    position: fixed; /* Permite que el componente esté fijo en la pantalla */
+    bottom: 20px;    /* Distancia desde la parte inferior */
+    right: 20px;     /* Distancia desde la derecha */
+    background: white; /* Fondo blanco para destacar el componente */
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 10px;   /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    z-index: 1000;   /* Asegura que esté por encima de otros elementos */
+  }
+  

@@ -1,0 +1,26 @@
+.info-bubble {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+    border: 1px solid #ccc; /* Borde gris */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    z-index: 1000; /* Asegúrate de que esté por encima del mapa */
+    display: none; /* Oculto por defecto */
+    transition: display 0.2s; /* Suaviza la aparición y desaparición */
+  }
+  
+  .info-bubble-content {
+    font-size: 14px;
+  }
+  
+  .info-bubble-content h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .info-bubble-content p {
+    margin: 5px 0 0 0;
+  }
+  

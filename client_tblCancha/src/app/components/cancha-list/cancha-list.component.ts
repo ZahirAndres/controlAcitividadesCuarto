@@ -27,6 +27,7 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
     'acciones',
   ];
   dataSource!: MatTableDataSource<Cancha>;
+  actualizar: boolean = true; // Cambiar a booleano
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -43,10 +44,8 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getCanchas();
     this.responsableService.getUserId();
 
-    // Configura el intervalo para actualizar la ubicación
-    this.updateLocationInterval = setInterval(() => {
-      this.updateUserLocation();
-    }, 5000); // Se ejecuta cada 60,000 ms (1 minuto)
+    // Configura el intervalo para actualizar la ubicación solo si actualizar es true
+    this.setupUpdateLocationInterval();
   }
 
   ngAfterViewInit() {
@@ -58,8 +57,30 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     // Limpia el intervalo cuando el componente se destruye
+    this.clearUpdateLocationInterval();
+  }
+
+  setupUpdateLocationInterval() {
+    if (this.actualizar) {
+      this.updateLocationInterval = setInterval(() => {
+        this.updateUserLocation();
+      }, 5000); // Se ejecuta cada 5 segundos
+    }
+  }
+
+  clearUpdateLocationInterval() {
     if (this.updateLocationInterval) {
       clearInterval(this.updateLocationInterval);
+    }
+  }
+
+  // Nueva función para cambiar el valor de actualizar
+  toggleActualizar() {
+    this.actualizar = !this.actualizar; // Cambia el estado de actualizar
+    if (this.actualizar) {
+      this.setupUpdateLocationInterval(); // Reinicia el intervalo
+    } else {
+      this.clearUpdateLocationInterval(); // Limpia el intervalo
     }
   }
 

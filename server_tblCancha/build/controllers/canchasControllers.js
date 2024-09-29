@@ -114,6 +114,7 @@ class CanchasControllers {
             }
             const latNum = parseFloat(lat);
             const lonNum = parseFloat(lon);
+            const radiusMeters = 0.5; // 100 metros en kilómetros (0.1 km)
             try {
                 const canchas = yield database_1.default.query(`
             SELECT C.*, R.nombUsuario,
@@ -125,9 +126,11 @@ class CanchasControllers {
             ) AS distance
             FROM cancha as C
             INNER JOIN responsable as R ON C.idResp = R.idResp
+            HAVING distance < ?
             ORDER BY distance
             LIMIT 3
-        `, [latNum, lonNum, latNum]);
+        `, [latNum, lonNum, latNum, radiusMeters] // Usar 0.1 km como el radio
+                );
                 res.json(canchas);
             }
             catch (error) {

@@ -75,6 +75,8 @@ import { DateFormatPipe } from './date-format.pipe';
 import { CanchaAddComponent } from './components/cancha-add/cancha-add.component';
 import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
+import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
 
 
 
@@ -111,7 +113,9 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     CanchaListComponent,
     CanchaAddComponent,
     CanchaEditComponent,
-    SelecMapaComponent
+    SelecMapaComponent,
+    MapaGeneralComponent,
+    CanchaInfoComponent
     
   ],
   imports: [
