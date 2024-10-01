@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { MatDialog } from '@angular/material/dialog';
-
+ 
 @Component({ 
   selector: 'app-ver-edificios',
   templateUrl: './ver-edificios.component.html',
@@ -70,7 +70,7 @@ export class VerEdificiosComponent implements OnInit, AfterViewInit {
         this.deleteEdificio(idEdificios);
       }
     });
-  }
+  } 
   
 
   deleteEdificio(idEdificios: string) {

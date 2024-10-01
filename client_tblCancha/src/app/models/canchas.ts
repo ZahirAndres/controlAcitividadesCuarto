@@ -1,10 +1,11 @@
 export interface Cancha {
     idCancha?: number;        
-    Nombre?: string;
+    nombre?: string;
     latitud?: number;
     longitud?: number;
-    Precio?: number;
-    Descripción?: string;
-    Estado?: string;
+    precio?: number;
+    descripcion?: string;
+    estado?: string;
     idResp?: number;
+    nombUsuario?: string;
 }

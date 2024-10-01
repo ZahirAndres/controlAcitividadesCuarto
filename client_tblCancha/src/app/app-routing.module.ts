@@ -23,6 +23,8 @@ import { NoAuthGuard } from './guards/logout.guard';
 import { ContratoComponent } from './components/contrato/contrato.component';
 import { CuatroCeroCuatroComponent } from './components/cuatro-cero-cuatro/cuatro-cero-cuatro.component';
 import { VerificarCorreoComponent } from './components/verificar-correo/verificar-correo.component';
+import { CanchaListComponent } from './components/cancha-list/cancha-list.component';
+import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio/inicio', pathMatch: 'full' },
@@ -36,6 +38,7 @@ const routes: Routes = [
       { path: 'oficios-reservas/edit/:idReserva', component: OficiosReservasComponent, canActivate: [RolWeGuard, RolDosGuard] },
       { path: 'sugerencias-quejas', component: CuatroCeroCuatroComponent },
       { path: 'reservaciones', component: ReservacionesComponent, canActivate : [NoAuthGuard] },
+      { path: 'cancha', component: CanchaListComponent, canActivate : [] },
       { path: 'reservas', component: ReservasComponent, canActivate: [RolDosGuard] },
       { path: 'registros', component: RegistrosComponent, canActivate: [RolUnoGuard] },
       { path: 'registros/:idResp', component: RegistrosComponent, canActivate: [RolBossGuard] },
@@ -43,13 +46,15 @@ const routes: Routes = [
       { path: 'edificio/edit/:idEdificio', component: AdminEdificiosComponent, canActivate: [RolUnoGuard] },
       { path: 'roles', component: RolesComponent, canActivate: [RolBossGuard] },
       { path: 'contrato', component: ContratoComponent },
-      { path: 'roles/edit/:idRoles', component: AdminRolesComponent, canActivate: [RolBossGuard] }
+      { path: 'roles/edit/:idRoles', component: AdminRolesComponent, canActivate: [RolBossGuard] },
+      { path: 'mapa', component: MapaGeneralComponent }
     ]
   },
   { path: 'ingresar', component: IngresarComponent },
   { path: 'recuperar-contras', component: RecuperarContrasComponent },
   { path: 'recuperar-contras/:idResp', component: RecuperarContrasComponent },
-  { path: 'verificar-correo/:token', component: VerificarCorreoComponent }
+  { path: 'verificar-correo/:token', component: VerificarCorreoComponent },
+  
 ];
 
 @NgModule({

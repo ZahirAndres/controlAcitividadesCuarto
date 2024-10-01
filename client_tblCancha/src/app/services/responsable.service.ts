@@ -46,7 +46,7 @@ export class ResponsableService {
   getUserId(): number {
     const user: Responsable = JSON.parse(localStorage.getItem('user') || '{}');
     console.log(user.idResp);
-    return user.idResp || 0; // Asegúrate de que `idResp` sea la propiedad correcta
+    return user.idResp || 0; 
   }
 
   login(nombUsuario: string, contrasenia: string): Observable<Responsable> {
@@ -125,5 +125,9 @@ setUsuarioEncontrado(valor: boolean): void {
 }
   
 
-
+ //lotatiud y longitud del usuario
+ updateUserLocation(idResp: number, lat: number, lng: number): Observable<any> {
+  const locationData = { lat, lng };
+  return this.http.put(`${this.API_URI}/usuarios/${idResp}/ubicacion`, locationData);
+}
 }

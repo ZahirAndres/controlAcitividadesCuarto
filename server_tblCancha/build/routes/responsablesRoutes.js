@@ -22,6 +22,8 @@ class ResponsablesRoutes {
         //Nueva ruta para verificar el correo
         this.router.post('/enviar-verificacion-correo', responsablesControllers_1.responsablesControllers.enviarCorreoVerificacion);
         this.router.get('/verificar-correo/:token', responsablesControllers_1.responsablesControllers.verificarToken);
+        // Ruta para actualzar la latitud y longitud
+        this.router.put('/usuarios/:idResp/ubicacion', responsablesControllers_1.responsablesControllers.updateUserLocation);
     }
 }
 const responsableRoutes = new ResponsablesRoutes();

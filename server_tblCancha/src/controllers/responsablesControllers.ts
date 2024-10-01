@@ -270,6 +270,22 @@ public async verificarToken(req: Request, res: Response): Promise<void> {
     }
 }
 
+//Método para actualzar la ubicación del usuario
+public async updateUserLocation(req: Request, res: Response): Promise<void> {
+    const { idResp } = req.params;
+    const { lat, lng } = req.body;
+
+    try {
+        const result = await pool.query('UPDATE responsable SET latitud = ?, longitud = ? WHERE idResp = ?', [lat, lng, idResp]);
+        if (result.affectedRows > 0) {
+            res.json({message : 'Localización actualizada del responsable'});
+        } else {
+            res.status(404).json({message : 'Responsable no encontrado'});
+        }
+    } catch (error) {
+        res.status(500).json({message: 'Error al actualizar la ubicación'})
+    }
+}
 
 }
 
