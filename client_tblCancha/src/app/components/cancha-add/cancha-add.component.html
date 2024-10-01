@@ -6,7 +6,7 @@
    
     <div class="row">
       <mat-form-field>
-        <mat-label>Nombre</mat-label>
+        <mat-label>Nombre:</mat-label>
         <input matInput required [(ngModel)]="cancha.nombre" name="nombre" #nombre="ngModel"
                minlength="5" pattern="^[A-Za-z\s]+$">
         <mat-error *ngIf="nombre.errors?.['required'] && nombre.touched">
