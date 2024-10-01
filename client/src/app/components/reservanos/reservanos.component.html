@@ -1,0 +1,103 @@
+<div class="container-fluid px-4 mb-5">
+  <div id="myTabContent" class="tab-content bg-light mt-5">
+    <div class="tab-content mt-3 p-3">
+      <div class="tab-pane fade active show" id="profile" role="tabpanel">
+       
+        <div class="mt-5">
+          <h1>Reservanos</h1>
+        </div>
+        
+        <form [formGroup]="reservaForm" (ngSubmit)="saveReserva()" class="h5">
+          <div class="row mt-3">
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="col">
+                  <mat-form-field [appearance]="formAppearance" class="width">
+                    <mat-label>Fecha MM/DD/YYYY</mat-label>
+                    <input matInput [min]="minDate" [matDatepicker]="picker" formControlName="fecha" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="reservaForm.get('fecha')?.hasError('required')">
+                      La fecha es obligatoria.
+                    </mat-error>
+                    <mat-error *ngIf="reservaForm.get('fecha')?.hasError('matDatepickerMin')">
+                      La fecha no puede ser anterior a hoy.
+                    </mat-error>
+                    
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field [appearance]="formAppearance" class="width">
+                    <mat-label>Hora de inicio</mat-label>
+                    <mat-select formControlName="horaInicio">
+                      <mat-option *ngFor="let time of availableStartTimes" [value]="time">{{ time }}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="reservaForm.get('horaInicio')?.hasError('required')">
+                      La hora de inicio es obligatoria.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field [appearance]="formAppearance" class="width">
+                    <mat-label>Hora de fin</mat-label>
+                    <mat-select formControlName="horaFin">
+                      <mat-option *ngFor="let time of availableEndTimes" [value]="time">{{ time }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <mat-form-field [appearance]="formAppearance" class="width">
+                <mat-label>Razones de la reservación</mat-label>
+                <textarea matInput rows="7" placeholder="Razones de la Reservación" formControlName="razon"></textarea>
+                <mat-hint align="end">{{length}} / 4000</mat-hint>
+                <mat-error *ngIf="reservaForm.get('razon')?.hasError('required')">
+                  La razón de la reservación es obligatoria.
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-4">
+              <legend>Área a usar</legend>
+              <mat-radio-group formControlName="areaUsar">
+                <mat-radio-button class="h6in" value="danzaFolclorica">Danza Folclórica</mat-radio-button>
+                <mat-radio-button class="h6in" value="taekwando">Taekwando</mat-radio-button>
+                <mat-radio-button class="h6in" value="baloncestoVoleibol">Baloncesto y voleibol</mat-radio-button>
+                <mat-radio-button class="h6in" value="ajedrez">Ajedrez</mat-radio-button>
+                <mat-error *ngIf="reservaForm.get('areaUsar')?.hasError('required')" class="error-message">
+                  El área a usar es obligatoria.
+                </mat-error>
+              </mat-radio-group>
+              <div class="row mt-5">
+                <div class="col">
+                  <button type="button" class="btn btn-warning" (click)="reset()">Limpiar</button>
+                </div>
+                <div class="col">
+                  <button type="submit" class="btn btn-success" [disabled]="isGuardarDisabled || reservaForm.invalid">Enviar</button>
+                </div>
+                <button type="submit" class="btn btn-success" (click)="saveReserva()" [disabled]="isGuardarDisabled || reservaForm.invalid">Reservar</button>
+
+              </div>
+
+            </div>
+          </div>
+        </form>
+        <p>
+        En caso de necesitar un horario fuera de los disponible, dirijase a <button class="btn btn-disable" routerLink="/inicio/oficios-reservas"> Oficio para reservar </button>
+          y presente al Gimnasio Auditorio con el oficio.
+      </p>
+      <div class="container text-center mt-3">
+        <div class="">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1376.9214153667863!2d-100.93200599145938!3d21.16763208575214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b3efe2e87ccd7%3A0xcf1c80c255f1993e!2sUniversidad%20Tecnol%C3%B3gica%20del%20Norte%20de%20Guanajuato!5e1!3m2!1ses-419!2smx!4v1723920032509!5m2!1ses-419!2smx"
+            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+<h2 mat-dialog-title class="tit">Editar Cancha</h2>
+<form (ngSubmit)="onSubmit()" #editCanchaForm="ngForm" class="cancha-form">
+
+  <mat-dialog-content>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput required [(ngModel)]="cancha.nombre" name="nombre" #nombre="ngModel">
+        <mat-error *ngIf="nombre.invalid && nombre.touched">
+          Nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Latitud</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.latitud" name="latitud" #latitud="ngModel">
+        <mat-error *ngIf="latitud.invalid && latitud.touched">
+          Latitud es obligatoria y debe ser un número
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="row">
+      <mat-form-field>
+        <mat-label>Longitud</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.longitud" name="longitud" #longitud="ngModel">
+        <mat-error *ngIf="longitud.invalid && longitud.touched">
+          Longitud es obligatoria y debe ser un número
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Precio</mat-label>
+        <input matInput required type="number" [(ngModel)]="cancha.precio" name="precio" #precio="ngModel">
+        <mat-error *ngIf="precio.invalid && precio.touched">
+          Precio debe ser un número positivo
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput [(ngModel)]="cancha.descripcion" name="descripcion" required minlength="10" #descripcion="ngModel"></textarea>
+      <mat-error *ngIf="descripcion.invalid && descripcion.touched">
+        La descripción debe tener al menos 10 caracteres
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label>Estado</mat-label>
+      <input matInput [(ngModel)]="cancha.estado" name="estado" required #estado="ngModel">
+      <mat-error *ngIf="estado.invalid && estado.touched">
+        Estado es obligatorio
+      </mat-error>
+      <app-selec-mapa (coordenadasSeleccionadas)="actualizarCoordenadas($event)"></app-selec-mapa>
+
+    </mat-form-field>
+
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick()" type="button" class="cancel-button">
+      <i class="fas fa-trash"></i>
+      Cancelar
+    </button>
+
+    <button mat-button type="submit" class="submit-button" [disabled]="editCanchaForm.invalid">
+      <i class="fas fa-save"></i>
+      Guardar
+    </button>
+  </mat-dialog-actions>
+
+</form>

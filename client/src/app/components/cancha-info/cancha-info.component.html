@@ -1,0 +1,11 @@
+<button (click)="cerrar()">X</button>
+<div *ngIf="cancha">
+    <h2>{{ cancha.nombre }}</h2>
+    <p><strong>Descripción:</strong> {{ cancha.descripcion }}</p>
+    <p><strong>Estado:</strong> {{ cancha.estado }}</p>
+    <p><strong>Precio:</strong> {{ cancha.precio }}</p>
+    <p><strong>Ubicación:</strong> {{ cancha.latitud }}, {{ cancha.longitud }}</p>
+    <p><strong>Usuario:</strong> {{ cancha.nombUsuario }}</p>
+  </div>
+  <p *ngIf="!cancha">No hay información disponible sobre la cancha.</p>
+  
