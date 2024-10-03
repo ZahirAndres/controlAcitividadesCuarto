@@ -78,6 +78,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
 import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
 import { FacebookComponent } from './components/facebook/facebook.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
