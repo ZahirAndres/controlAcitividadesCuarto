@@ -98,7 +98,7 @@ class CanchasControllers {
 
     const latNum = parseFloat(lat);
     const lonNum = parseFloat(lon);
-    const radiusMeters = 0.5; // 100 metros en kilómetros (0.1 km)
+    const radiusMeters = 2.5; // 500 metros en kilómetros (0.1 km)
 
     try {
       const canchas = await pool.query(

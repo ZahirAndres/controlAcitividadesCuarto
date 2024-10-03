@@ -14,7 +14,6 @@ export class SelecMapaComponent implements OnInit {
   private map: any;
   private marker: any; // el marcador actual
   private fixedMarker: any; // marcador fijo en la ubicación deseada
-  private API_URI = 'TU_API_URI_AQUI'; // Reemplaza con tu URI real
 
   @Output() coordenadasSeleccionadas = new EventEmitter<{ lat: number, lng: number }>();
 
@@ -55,9 +54,6 @@ export class SelecMapaComponent implements OnInit {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
           this.setMapCenter(lat, lng);
-          this.getThreeCanchas(lat, lng).subscribe(canchas => {
-            this.addCanchasToMap(canchas);
-          });
         },
         error => {
           console.error('Error obteniendo la geolocalización', error);
@@ -90,10 +86,6 @@ export class SelecMapaComponent implements OnInit {
     const fixedMarkerIcon = new H.map.Icon('https://cdn3.iconfinder.com/data/icons/tourism/eiffel200.png', { size: { w: 32, h: 32 } });
     this.fixedMarker = new H.map.Marker({ lat, lng }, { icon: fixedMarkerIcon });
     this.map.addObject(this.fixedMarker);
-  }
-
-  getThreeCanchas(lat: number, lon: number): Observable<Cancha[]> {
-    return this.http.get<Cancha[]>(`${this.API_URI}/nearby/${lat}/${lon}`);
   }
 
   private addCanchasToMap(canchas: Cancha[]): void {
