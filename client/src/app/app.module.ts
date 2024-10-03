@@ -77,7 +77,6 @@ import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.compon
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
 import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
-import { FacebookComponent } from './components/facebook/facebook.component';
 
 
 
@@ -116,8 +115,7 @@ import { FacebookComponent } from './components/facebook/facebook.component';
     CanchaEditComponent,
     SelecMapaComponent,
     MapaGeneralComponent,
-    CanchaInfoComponent,
-    FacebookComponent
+    CanchaInfoComponent
     
   ],
   imports: [
