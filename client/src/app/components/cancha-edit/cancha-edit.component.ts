@@ -22,7 +22,13 @@ export class CanchaEditComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  actualizarCoordenadas(event: { lat: number, lng: number }) {
+    this.cancha.latitud = event.lat;
+    this.cancha.longitud = event.lng;
+    console.log('Coordenadas actualizadas:', this.cancha.latitud, this.cancha.longitud);
+  }
 
+  
   onSubmit(): void {
     if (this.cancha.idCancha !== undefined) {
       const canchaToUpdate = { ...this.cancha };

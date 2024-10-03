@@ -53,10 +53,12 @@
       <mat-error *ngIf="estado.invalid && estado.touched">
         Estado es obligatorio
       </mat-error>
+      <app-selec-mapa (coordenadasSeleccionadas)="actualizarCoordenadas($event)"></app-selec-mapa>
+
     </mat-form-field>
 
   </mat-dialog-content>
-
+  
   <mat-dialog-actions>
     <button mat-button (click)="onNoClick()" type="button" class="cancel-button">
       <i class="fas fa-trash"></i>

@@ -115,8 +115,7 @@ import { CanchaInfoComponent } from './components/cancha-info/cancha-info.compon
     CanchaEditComponent,
     SelecMapaComponent,
     MapaGeneralComponent,
-    CanchaInfoComponent
-    
+    CanchaInfoComponent    
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ export class MapaGeneralComponent {
   private marker: any; // el marcador actual
   private fixedMarker: any; // marcador fijo en la ubicación deseada
   private API_URI = 'http://localhost:3000/canchas'; // Reemplaza con tu URI real
+  private router: any; // Router para calcular las rutas
 
   @Output() coordenadasSeleccionadas = new EventEmitter<{ lat: number, lng: number }>();
   
@@ -24,6 +25,7 @@ export class MapaGeneralComponent {
     this.platform = new H.service.Platform({
       apikey: 'f2D9Kf7afmHS5i7Jc5LRUtP3Kpf0cVZ6FLG21hFje-4'
     });
+    this.router = this.platform.getRoutingService(null, 8); // Inicializa el servicio de routing
   }
 
   ngOnInit(): void {
@@ -42,7 +44,6 @@ export class MapaGeneralComponent {
 
     this.getCurrentPosition();
 
-
     this.map.addEventListener('tap', (evt: any) => {
       const coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
       this.addMarker(coord.lat, coord.lng);
@@ -59,6 +60,7 @@ export class MapaGeneralComponent {
           this.setMapCenter(lat, lng);
           this.getThreeCanchas(lat, lng).subscribe(canchas => {
             this.addCanchasToMap(canchas);
+            this.calculateRoutes(lat, lng, canchas); // Calcula las rutas hacia las canchas
           });
         },
         error => {
@@ -88,9 +90,7 @@ export class MapaGeneralComponent {
         this.marker = new H.map.Marker({ lat, lng }, { icon: monkeyIcon });
         this.map.addObject(this.marker);
     }
-}
-
-
+  }
 
   getThreeCanchas(lat: number, lon: number): Observable<Cancha[]> {
     return this.http.get<Cancha[]>(`${this.API_URI}/nearby/${lat}/${lon}`);
@@ -138,5 +138,38 @@ export class MapaGeneralComponent {
     } else {
       console.error('El marcador no es un H.map.Marker', marker);
     }
+  }
+
+  private calculateRoutes(lat: number, lng: number, canchas: Cancha[]): void {
+    const color = ['red', 'blue','green'];
+    canchas.forEach((cancha, index) => {
+      const routingParams = {
+        'routingMode': 'fast',
+        'transportMode': 'car',
+        'origin': `${lat},${lng}`,
+        'destination': `${cancha.latitud},${cancha.longitud}`,
+        'return': 'polyline,summary'
+      };
+  
+      this.router.calculateRoute(routingParams, (result: any) => {
+        if (result.routes.length) {
+          const route = result.routes[0];
+          this.addRouteToMap(route, color[index % color.length]);
+        }
+      }, (error: any) => {
+        console.error('Error calculando la ruta:', error);
+      });
+    });
+  }
+  
+  private addRouteToMap(route: any, color: String): void {
+    const routeShape = route.sections[0].polyline;
+    const linestring = H.geo.LineString.fromFlexiblePolyline(routeShape);
+  
+    const routeLine = new H.map.Polyline(linestring, {
+      style: { strokeColor: color, lineWidth: 5 }
+    });
+  
+    this.map.addObject(routeLine);
   }
 }
