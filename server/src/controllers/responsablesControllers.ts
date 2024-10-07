@@ -200,14 +200,14 @@ public async enviarCorreoVerificacion(req: Request, res: Response): Promise<void
     }
 
     try {
-        const result = await pool.query('SELECT idResp, nombres FROM responsable WHERE correoElec = ?', [correoElec]);
+        const result = await pool.query('SELECT idResp, nombres, nombUsuario FROM responsable WHERE correoElec = ?', [correoElec]);
 
         if (result.length === 0) {
             res.status(404).json({ message: 'Usuario no encontrado' });
             return;
         }
 
-        const { idResp, nombres } = result[0];
+        const { idResp, nombres, nombUsuario } = result[0];
         const token = crypto.randomBytes(20).toString('hex');
 
         // Guardar el token en la base de datos con una expiración (opcional)
@@ -235,9 +235,9 @@ public async enviarCorreoVerificacion(req: Request, res: Response): Promise<void
             Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico:
 
             http://localhost:4200/verificar-correo/${token} 
-
+            Recuerda que tu nombre de usuario es: ${nombUsuario}
             Si no solicitaste esta verificación, por favor ignora este correo.
-
+            
             Atentamente,
             Control de Actividades
             `

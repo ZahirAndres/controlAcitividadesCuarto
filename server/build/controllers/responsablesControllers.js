@@ -225,12 +225,12 @@ class ResponsablesControllers {
                 return;
             }
             try {
-                const result = yield database_1.default.query('SELECT idResp, nombres FROM responsable WHERE correoElec = ?', [correoElec]);
+                const result = yield database_1.default.query('SELECT idResp, nombres, nombUsuario FROM responsable WHERE correoElec = ?', [correoElec]);
                 if (result.length === 0) {
                     res.status(404).json({ message: 'Usuario no encontrado' });
                     return;
                 }
-                const { idResp, nombres } = result[0];
+                const { idResp, nombres, nombUsuario } = result[0];
                 const token = crypto_1.default.randomBytes(20).toString('hex');
                 // Guardar el token en la base de datos con una expiración (opcional)
                 yield database_1.default.query('UPDATE responsable SET tokenVerificacion = ?, tokenExpiracion = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE idResp = ?', [token, idResp]);
@@ -255,9 +255,9 @@ class ResponsablesControllers {
             Por favor, haz clic en el siguiente enlace para verificar tu correo electrónico:
 
             http://localhost:4200/verificar-correo/${token} 
-
+            Recuerda que tu nombre de usuario es: ${nombUsuario}
             Si no solicitaste esta verificación, por favor ignora este correo.
-
+            
             Atentamente,
             Control de Actividades
             `

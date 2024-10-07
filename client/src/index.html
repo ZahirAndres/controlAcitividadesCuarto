@@ -23,6 +23,17 @@
 </head>
 <body class="mat-typography">
   <app-root></app-root>
-  
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '885872449836502', // Reemplaza 'your-app-id' con el ID de tu aplicación de Facebook
+        cookie     : true, // Enable cookies to allow the server to access the session.
+        xfbml      : true, // Parse social plugins on this webpage.
+        version    : 'v21.0' // Use this Graph API version for this call.
+      });
+      FB.AppEvents.logPageView();   
+    };
+  </script>
 </body>
 </html>

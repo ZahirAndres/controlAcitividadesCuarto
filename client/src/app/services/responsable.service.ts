@@ -101,6 +101,7 @@ export class ResponsableService {
 
 //verificar el correo
 enviarCorreoVerificacion(correoElec: string): Observable<any> {
+  console.log(correoElec);
   return this.http.post(`${this.API_URI}/enviar-verificacion-correo`, { correoElec });
 }
 
@@ -116,7 +117,7 @@ verificarToken(token: string): Observable<any> {
       console.error('Error al verificar el token:', error);
       return throwError(error);
     })
-  );
+  );  
 }
 
 
