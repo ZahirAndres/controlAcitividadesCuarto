@@ -330,7 +330,7 @@ export class IngresarComponent implements AfterViewInit {
   registroExitoso() {
     this.snackBar.open('Registro completado con éxito', 'Cerrar', {
       duration: 2000,
-      panelClass: ['success-snackbar']
+      panelClass: ['success-snackbar'],
     });
   }
 
