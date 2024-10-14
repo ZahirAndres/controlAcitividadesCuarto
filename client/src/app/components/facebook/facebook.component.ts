@@ -75,7 +75,7 @@ export class FacebookComponent implements OnInit {
                     duration: 2000,
                     panelClass: ['success-snackbar']
                   });
-                },
+                }, 
                 err => {
                   console.error('Error al enviar el correo de verificación:', err);
                   this.snackBar.open('Error al enviar el correo de verificación', 'Cerrar', {
