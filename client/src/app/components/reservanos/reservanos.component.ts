@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ResponsableService } from '../../services/responsable.service';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { DiscordService } from '../../services/discord.service';
+
 @Component({
   selector: 'app-reservanos',
   templateUrl: './reservanos.component.html',
@@ -29,7 +29,6 @@ export class ReservanosComponent implements OnInit {
     private reservasService: ReservasService,
     private activatedRoute: ActivatedRoute,
     private responsableService: ResponsableService,
-    private discordService: DiscordService, // Agregar el servicio de Discord
     private snackBar: MatSnackBar
   ) {
     this.reservaForm = this.fb.group({
@@ -42,7 +41,6 @@ export class ReservanosComponent implements OnInit {
       idResp: [''], 
     });
   }
-  
 
   ngOnInit(): void {
     const today = new Date();
@@ -171,8 +169,6 @@ export class ReservanosComponent implements OnInit {
     const [horaInicioHour, horaInicioMinute] = this.reservaForm.get('horaInicio')?.value.split(':').map(Number);
   
     reservaDateTime.setHours(horaInicioHour, horaInicioMinute, 0, 0);
-    const reserva = this.reservaForm.value;
-    const canalNombre = `reserva-${reserva.areaUsar}-${new Date().getTime()}`;
   
     // Verifica que la hora de la reserva sea al menos 3 horas después de la hora actual
     const threeHoursBefore = new Date(currentDateTime.getTime() + 3 * 60 * 60 * 1000); // Hora actual + 3 horas
@@ -183,7 +179,6 @@ export class ReservanosComponent implements OnInit {
         verticalPosition: 'top',
         panelClass: ['snackbar-info']
       });
-      
       return;
     }
   

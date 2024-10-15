@@ -1,6 +1,6 @@
 <div class="general">
   <div class="left-side">
-    <h2>Recuperar contraseña</h2>
+    <h2>Recuperar//actualizar contraseña</h2>
 
     <!-- Formulario para buscar usuario -->
     <form *ngIf="showBuscarForm" [formGroup]="buscarForm" (ngSubmit)="onBuscar()">
@@ -22,7 +22,7 @@
 
         <div *ngIf="buscarForm.errors?.['bothRequired']">
           <small class="text-danger">
-            Debe ingresar al menos un campo: correo electrónico o teléfono.
+            Debe ingresar al menos un campo: correo electrónico.
           </small>
         </div>
       </div>

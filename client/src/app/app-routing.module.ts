@@ -25,6 +25,8 @@ import { CuatroCeroCuatroComponent } from './components/cuatro-cero-cuatro/cuatr
 import { VerificarCorreoComponent } from './components/verificar-correo/verificar-correo.component';
 import { CanchaListComponent } from './components/cancha-list/cancha-list.component';
 import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
+import { FacebookComponent } from './components/facebook/facebook.component';
+import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/inicio/inicio', pathMatch: 'full' },
@@ -54,6 +56,8 @@ const routes: Routes = [
   { path: 'recuperar-contras', component: RecuperarContrasComponent },
   { path: 'recuperar-contras/:idResp', component: RecuperarContrasComponent },
   { path: 'verificar-correo/:token', component: VerificarCorreoComponent },
+  { path: 'login-facebook', component: FacebookComponent },
+  { path: 'conocerte', component: AyudanosConocerteComponent }
   
 ];
 

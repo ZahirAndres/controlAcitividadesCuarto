@@ -6,11 +6,11 @@
    
     <div class="row">
       <mat-form-field>
-        <mat-label>Nombre:</mat-label>
+        <mat-label>Nombre</mat-label>
         <input matInput required [(ngModel)]="cancha.nombre" name="nombre" #nombre="ngModel"
                minlength="5" pattern="^[A-Za-z\s]+$">
         <mat-error *ngIf="nombre.errors?.['required'] && nombre.touched">
-          Nombre es obligatorio.
+          Nombre es obligatorio
         </mat-error>
         <mat-error *ngIf="nombre.errors?.['minlength'] && nombre.touched">
           El nombre debe tener al menos 5 caracteres
