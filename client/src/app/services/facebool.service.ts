@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 declare const FB: any;
 
@@ -6,7 +7,8 @@ declare const FB: any;
   providedIn: 'root'
 })
 export class FaceboolService {
-
+  private profileImageUrlSource = new BehaviorSubject<string>('URL_ICONO_POR_DEFECTO');
+  profileImageUrl$ = this.profileImageUrlSource.asObservable();
   constructor() { }
 
   public initFacebookSdk(): void {
@@ -43,16 +45,18 @@ export class FaceboolService {
 
   public getProfile(): Promise<any> {
     return new Promise((resolve, reject) => {
-      FB.api('/me', { fields: 'name,email' }, (response: any) => {
-        if (!response || response.error) {
-          reject(response.error);
-        } else {
+      FB.api('/me', { fields: 'id,name,email,picture.width(200).height(200)' }, (response: any) => {
+        if (response && !response.error) {
           resolve(response);
+        } else {
+          reject(response.error);
         }
       });
     });
   }
-
+  setProfileImageUrl(url: string): void {
+    this.profileImageUrlSource.next(url);
+  }
   public getUserInfo(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.login().then(() => {

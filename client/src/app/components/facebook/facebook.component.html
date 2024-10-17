@@ -1,1 +1,13 @@
-<button (click)="loginWithFacebook()" type="menu">Registrate con Facebook</button>
+<!-- Botón para iniciar sesión con Facebook -->
+
+<button (click)="loginWithFacebook()" type="button">Registrate con Facebook</button>
+
+
+<div *ngIf="user">
+  <h2>Bienvenido, {{ user.name }}</h2>
+  
+  <img [src]="user.photoUrl" alt="Foto de perfil de {{ user.name }}" />
+
+
+  <button (click)="confirmarRegistro()" class="btn2">Confirmar Registro</button>
+</div>
