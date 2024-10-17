@@ -109,7 +109,7 @@ verificarToken(token: string): Observable<any> {
   return this.http.get<RespuestaVerificacion>(`${this.API_URI}/verificar-correo/${token}`).pipe(
     tap(response => {
       if (response && response.idResp) {
-     
+    
         console.log('ID de Responsable:', response.idResp);
       }
     }),
