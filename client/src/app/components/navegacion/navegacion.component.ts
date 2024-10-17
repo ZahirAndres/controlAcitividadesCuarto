@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { ResponsableService } from '../../services/responsable.service';
+import { FaceboolService } from '../../services/facebool.service'; // Importar el servicio de Facebook
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AscensoComponent } from '../ascenso/ascenso.component';
@@ -10,7 +11,7 @@ import { AscensoComponent } from '../ascenso/ascenso.component';
 @Component({
   selector: 'app-navegacion',
   templateUrl: './navegacion.component.html',
-  styleUrl: './navegacion.component.css'
+  styleUrls: ['./navegacion.component.css']
 })
 export class NavegacionComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
@@ -19,16 +20,23 @@ export class NavegacionComponent implements OnInit {
       map(result => result.matches),
       shareReplay()
     );
+
   userRole: number = 0;
   nombUsuario: string = '';
   rol: string = '';
+  profileImageUrl: string | null = null;
+
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private responsableService: ResponsableService,
-     private router: Router,
-     private dialog: MatDialog) {
+  constructor(
+    private responsableService: ResponsableService,
+    private fbService: FaceboolService, // Inyectar FaceboolService
+    private router: Router,
+    private dialog: MatDialog
+  ) {
     this.isLoggedIn$ = this.responsableService.loggedIn.asObservable();
     this.userRole = this.responsableService.getUserRole();
+    
     this.isLoggedIn$.subscribe(loggedIn => {
       if (loggedIn) {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -43,9 +51,16 @@ export class NavegacionComponent implements OnInit {
         // Asignar el rol basado en userRole
         this.userRole = this.responsableService.getUserRole();
         this.rol = this.getRoleName(this.userRole);
+
+        // Suscribirse a los cambios en la imagen de perfil
+        this.fbService.profileImageUrl$.subscribe(url => {
+          this.profileImageUrl = url; // Asignar la URL de la imagen obtenida desde el servicio
+        });
+
       } else {
         // Cuando no está autenticado
         this.rol = 'Visitante';
+        this.profileImageUrl = null; // No hay foto de perfil
       }
     });
   }
@@ -63,6 +78,7 @@ export class NavegacionComponent implements OnInit {
   canAccess(role: number[]): boolean {
     return role.includes(this.userRole);
   }
+
   getRoleName(role: number): string {
     switch (role) {
       case 1: return 'Administrador';
@@ -77,5 +93,4 @@ export class NavegacionComponent implements OnInit {
       width: '400px'
     });
   }
-
 }

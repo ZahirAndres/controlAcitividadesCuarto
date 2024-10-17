@@ -94,7 +94,7 @@ export class ResponsableService {
   }
 
  //correo electrónico
- enviarCorreoAscenso(razon: string): Observable<any> {
+  enviarCorreoAscenso(razon: string): Observable<any> {
   const userId = this.getUserId(); 
   return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId });
 }

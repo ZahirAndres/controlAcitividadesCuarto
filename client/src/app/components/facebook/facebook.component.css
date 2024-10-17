@@ -11,3 +11,22 @@ button {
     margin-top: 10px;
     cursor: pointer;
   }
+.btn2{
+
+  background-color: #0b5b42;
+  color: #fff;
+  font-size: 12px;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+
+}
+img{
+  border-radius: 50%;    /* Esto hace que la imagen sea circular */
+  object-fit: cover;      /* Asegura que la imagen se recorte correctamente si no es cuadrada */
+}
