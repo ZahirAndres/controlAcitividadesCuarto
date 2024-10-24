@@ -14,7 +14,7 @@ export class CanchaService {
 
   getCanchas() {
     return this.http.get<Cancha[]>(`${this.API_URI}`);
-  }
+  } 
 
   getCancha(idCancha: string | number) {
     return this.http.get<Cancha>(`${this.API_URI}/${idCancha}`);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Subject, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 //models
 import { Reservas } from '../models/reservas';
 import { ReservasImprimir } from '../models/ReservaImprimir';
@@ -10,7 +10,7 @@ interface CheckReservaResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class ReservasService {
   API_URI = 'http://localhost:3000/reservas'; //conexion
@@ -26,6 +26,9 @@ export class ReservasService {
     return this.http.get<Reservas>(`${this.API_URI}/${idReserva}`);
   }
 
+  getReservaPorCancha(idCancha: String| number): Observable<Reservas[]>{
+    return this.http.get<Reservas[]>(`${this.API_URI}/porCancha/${idCancha}`);
+  }
 
   saveReserva(reserva: Reservas) {
     return this.http.post(`${this.API_URI}`, reserva).pipe(
