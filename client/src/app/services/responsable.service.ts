@@ -16,6 +16,7 @@ export class ResponsableService {
   //validar correo
   private usuarioEncontradoSubject = new BehaviorSubject<boolean>(false);
   usuarioEncontrado$ = this.usuarioEncontradoSubject.asObservable();
+  snapshot: any;
 
   constructor(private http: HttpClient) {}
 

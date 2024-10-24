@@ -3,10 +3,9 @@ import pool from '../database';
 
 class ReservasControllers {
     public async index(req: Request, resp: Response) {
-
         const reservas = await pool.query('SELECT * FROM reservas');
         resp.json(reservas);
-    }
+    }    
 
     public async getReserva(req: Request, res: Response): Promise<void> {
         const { idReserva } = req.params;

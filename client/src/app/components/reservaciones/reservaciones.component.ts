@@ -146,7 +146,10 @@ export class ReservacionesComponent {
     }
   }
   updateReservaEstado(idReserva: string, estado: string) {
-    this.reservaService.updateReserva(idReserva, { estado }).subscribe(
+    this.reservaService.updateReserva(idReserva, {
+      estado,
+      idCancha: undefined
+    }).subscribe(
       resp => {
         console.log(resp);
         this.getReservas();
