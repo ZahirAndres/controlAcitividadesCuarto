@@ -59,6 +59,7 @@ import { VerificarCorreoComponent } from './components/verificar-correo/verifica
 import { CanchaListComponent } from './components/cancha-list/cancha-list.component';
 import { SelecMapaComponent } from './components/selec-mapa/selec-mapa.component';
 
+
 // Services
 import { ReservasService } from './services/reservas.service';
 import { ResponsableService } from './services/responsable.service';
@@ -79,6 +80,7 @@ import { MapaGeneralComponent } from './components/mapa-general/mapa-general.com
 import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
+import { WeatherComponent } from './components/weather/weather.component';
 
 
 
@@ -119,7 +121,8 @@ import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayud
     MapaGeneralComponent,
     CanchaInfoComponent,
     FacebookComponent,
-    AyudanosConocerteComponent    
+    AyudanosConocerteComponent,
+    WeatherComponent    
   ],
   imports: [
     BrowserModule,

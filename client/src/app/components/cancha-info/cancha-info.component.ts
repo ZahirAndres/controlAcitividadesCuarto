@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Cancha } from '../../models/canchas'; // Asegúrate de que la ruta sea correcta
+import { Cancha } from '../../models/canchas';
 
 @Component({
   selector: 'app-cancha-info',
@@ -8,6 +8,7 @@ import { Cancha } from '../../models/canchas'; // Asegúrate de que la ruta sea 
 })
 export class CanchaInfoComponent {
   @Input() cancha: Cancha | null = null;
+  @Input() temperatura: number | string = 'N/A'; // Nuevo input para la temperatura
 
   cerrar() {
     this.cancha = null; 

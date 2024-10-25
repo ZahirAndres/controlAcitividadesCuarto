@@ -5,15 +5,14 @@ import { catchError, tap } from 'rxjs/operators';
 import { Responsable } from '../models/responsable';
 import { RespuestaVerificacion } from '../models/respuesta-verificacion';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class ResponsableService {
   private API_URI = 'http://localhost:3000/responsables';
   public loggedIn = new BehaviorSubject<boolean>(this.hasToken());
-
-  //validar correo
+  
+  // Validar correo
   private usuarioEncontradoSubject = new BehaviorSubject<boolean>(false);
   usuarioEncontrado$ = this.usuarioEncontradoSubject.asObservable();
 
@@ -45,14 +44,12 @@ export class ResponsableService {
 
   getUserId(): number {
     const user: Responsable = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(user.idResp);
     return user.idResp || 0; 
   }
 
   login(nombUsuario: string, contrasenia: string): Observable<Responsable> {
     return this.http.post<Responsable>(`${this.API_URI}/validate`, { nombUsuario, contrasenia }).pipe(
       tap(user => {
-        console.log('Usuario autenticado:', user); 
         if (user && user.idResp) {
           localStorage.setItem('user', JSON.stringify(user));
           this.loggedIn.next(true);
@@ -93,42 +90,43 @@ export class ResponsableService {
     return this.http.get(`${this.API_URI}/${idResp}`);
   }
 
- //correo electrónico
- enviarCorreoAscenso(razon: string): Observable<any> {
-  const userId = this.getUserId(); 
-  return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId });
-}
+  // Enviar correo electrónico para ascenso
+  enviarCorreoAscenso(razon: string): Observable<any> {
+    const userId = this.getUserId(); 
+    return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId });
+  }
 
-//verificar el correo
-enviarCorreoVerificacion(correoElec: string): Observable<any> {
-  console.log(correoElec);
-  return this.http.post(`${this.API_URI}/enviar-verificacion-correo`, { correoElec });
-}
+  // Verificar el correo
+  enviarCorreoVerificacion(correoElec: string): Observable<any> {
+    return this.http.post(`${this.API_URI}/enviar-verificacion-correo`, { correoElec });
+  }
 
-verificarToken(token: string): Observable<any> {
-  return this.http.get<RespuestaVerificacion>(`${this.API_URI}/verificar-correo/${token}`).pipe(
-    tap(response => {
-      if (response && response.idResp) {
-     
-        console.log('ID de Responsable:', response.idResp);
-      }
-    }),
-    catchError(error => {
-      console.error('Error al verificar el token:', error);
-      return throwError(error);
-    })
-  );  
-}
+  verificarToken(token: string): Observable<any> {
+    return this.http.get<RespuestaVerificacion>(`${this.API_URI}/verificar-correo/${token}`).pipe(
+      tap(response => {
+        if (response && response.idResp) {
+          console.log('ID de Responsable:', response.idResp);
+        }
+      }),
+      catchError(error => {
+        console.error('Error al verificar el token:', error);
+        return throwError(error);
+      })
+    );  
+  }
 
+  setUsuarioEncontrado(valor: boolean): void {
+    this.usuarioEncontradoSubject.next(valor);
+  }
 
-setUsuarioEncontrado(valor: boolean): void {
-  this.usuarioEncontradoSubject.next(valor);
-}
-  
+  // Actualizar latitud y longitud del usuario
+  updateUserLocation(idResp: number, lat: number, lng: number): Observable<any> {
+    const locationData = { lat, lng };
+    return this.http.put(`${this.API_URI}/usuarios/${idResp}/ubicacion`, locationData);
+  }
 
- //lotatiud y longitud del usuario
- updateUserLocation(idResp: number, lat: number, lng: number): Observable<any> {
-  const locationData = { lat, lng };
-  return this.http.put(`${this.API_URI}/usuarios/${idResp}/ubicacion`, locationData);
-}
+  // Actualizar URL de la imagen de perfil
+  updateProfileImageUrl(idResp: number, imagen_url: string): Observable<any> {
+    return this.http.put(`${this.API_URI}/${idResp}/image`, { imagen_url });
+  }
 }

@@ -36,7 +36,7 @@ export class NavegacionComponent implements OnInit {
   ) {
     this.isLoggedIn$ = this.responsableService.loggedIn.asObservable();
     this.userRole = this.responsableService.getUserRole();
-    
+
     this.isLoggedIn$.subscribe(loggedIn => {
       if (loggedIn) {
         const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -45,6 +45,7 @@ export class NavegacionComponent implements OnInit {
         if (idResp) {
           this.responsableService.getResponsableById(idResp).subscribe(responsable => {
             this.nombUsuario = responsable.nombUsuario ?? 'Visitante';
+            this.profileImageUrl = responsable.imagen_url || null; // Asigna la URL de la imagen de perfil
           });
         }
 
@@ -54,13 +55,19 @@ export class NavegacionComponent implements OnInit {
 
         // Suscribirse a los cambios en la imagen de perfil
         this.fbService.profileImageUrl$.subscribe(url => {
-          this.profileImageUrl = url; // Asignar la URL de la imagen obtenida desde el servicio
+          this.profileImageUrl = url;
+          if (url) {
+            localStorage.setItem('profileImageUrl', url); // Guardar en localStorage
+          } else {
+            localStorage.removeItem('profileImageUrl');
+          }
         });
 
       } else {
         // Cuando no está autenticado
         this.rol = 'Visitante';
         this.profileImageUrl = null; // No hay foto de perfil
+        localStorage.removeItem('profileImageUrl'); // Limpiar de localStorage si no está autenticado
       }
     });
   }
@@ -68,10 +75,15 @@ export class NavegacionComponent implements OnInit {
   ngOnInit() {
     this.userRole = this.responsableService.getUserRole();
     this.isLoggedIn$ = this.responsableService.loggedIn.asObservable();
+
+    // Recuperar la URL de la imagen de perfil desde localStorage al iniciar el componente
+    this.profileImageUrl = localStorage.getItem('profileImageUrl');
+    console.log('Imagen de perfil recuperada:', this.profileImageUrl); // Depuración
   }
 
   logout() {
     this.responsableService.logout();
+    localStorage.removeItem('profileImageUrl'); // Limpiar la URL de la imagen de perfil
     this.router.navigate(['/ingresar']);
   }
 

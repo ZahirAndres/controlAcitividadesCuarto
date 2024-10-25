@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Subject, tap } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 //models
 import { Reservas } from '../models/reservas';
 import { ReservasImprimir } from '../models/ReservaImprimir';
@@ -24,6 +24,10 @@ export class ReservasService {
 
   getReserva(idReserva: string | number) {
     return this.http.get<Reservas>(`${this.API_URI}/${idReserva}`);
+  }
+
+getReservaPorCancha(idCancha: String| number): Observable<Reservas[]>{
+    return this.http.get<Reservas[]>(`${this.API_URI}/porCancha/${idCancha}`);
   }
 
 
@@ -67,6 +71,12 @@ export class ReservasService {
   checkReserva(horaInicio: string, horaFin: string, fecha: string) {
     return this.http.post<CheckReservaResponse>(`${this.API_URI}/check`, { horaInicio, horaFin, fecha });
   }
+  // responsable.service.ts
+updateProfileImageUrl(id: string, photoUrl: string): Observable<any> {
+  const url = `${this.API_URI}/responsables/${id}/updateProfileImage`; // Asegúrate de que esta URL sea correcta
+  return this.http.put(url, { photoUrl });
+}
+
 
 
 

@@ -30,21 +30,19 @@
       <span>Control de Actividades UTNG</span>
       <span style="flex: 1;"></span>
 
-      <!-- User and Ascenso button with dropdown menu -->
-    <button mat-button [matMenuTriggerFor]="userMenu">
-  <!-- Si el usuario tiene una imagen de perfil, se muestra. De lo contrario, se muestra el icono de persona -->
-  <img *ngIf="profileImageUrl; else defaultIcon" [src]="profileImageUrl" alt="Foto de perfil" class="user-profile-pic" style="width: 30px; height: 30px; border-radius: 50%;">
-  
-  <!-- Icono por defecto si no hay imagen -->
-  <ng-template #defaultIcon>
-    <mat-icon>person</mat-icon>
-  </ng-template>
+      <!-- Botón de usuario con imagen o ícono de persona -->
+      <button mat-button [matMenuTriggerFor]="userMenu">
+        <!-- Mostrar imagen de perfil o ícono por defecto -->
+        <img *ngIf="profileImageUrl; else defaultIcon" [src]="profileImageUrl" alt="Foto de perfil" class="profile-image" style="width: 40px; height: 40px; border-radius: 50%;" />
+        <ng-template #defaultIcon>
+          <mat-icon>person</mat-icon>
+        </ng-template>
 
-  <span style="padding: 3px;" *ngIf="isLoggedIn$ | async">{{ nombUsuario }} ({{ rol }})</span>
-  <mat-icon>arrow_drop_down</mat-icon>
-</button>
+        <!-- Nombre de usuario y rol -->
+        <span style="padding: 3px;" *ngIf="isLoggedIn$ | async">{{ nombUsuario }} ({{ rol }})</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
 
-      
       <mat-menu #userMenu="matMenu" class="center">
         <span style="padding: 3px; background-color: #31688cae;">Control de Actividades UTNG</span>
         <span style="padding: 3px; padding-left: 30px; display: flex;" *ngIf="isLoggedIn$ | async">{{ nombUsuario }} ({{ rol }}) <i class="bi bi-person-walking"></i></span>

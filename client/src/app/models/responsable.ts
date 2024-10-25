@@ -9,5 +9,6 @@ export interface Responsable {
     correoElec?: string; 
     numControl?: string;
     grupo?: string;
+    imagen_url?: string;
     idRoles?: number;
 }

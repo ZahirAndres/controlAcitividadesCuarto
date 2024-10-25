@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { CanchaEditComponent } from '../cancha-edit/cancha-edit.component';
 import { ResponsableService } from '../../services/responsable.service';
+import { WeatherService } from '../../services/weather.service'; // Asegúrate de que la ruta sea correcta
 
 @Component({
   selector: 'app-cancha-list',
@@ -37,7 +38,8 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private canchaService: CanchaService,
     private dialog: MatDialog,
-    private responsableService: ResponsableService
+    private responsableService: ResponsableService,
+    private weatherService: WeatherService // Inyectar servicio de clima
   ) {}
 
   ngOnInit(): void {

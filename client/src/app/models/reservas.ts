@@ -1,4 +1,5 @@
 export interface Reservas {
+    idCancha?: number;
     idReserva?:number;
     horaInicio?:Date;
     horaFin?:Date;

@@ -17,7 +17,7 @@ export class FacebookComponent implements OnInit {
     private fbService: FaceboolService,
     private responsableService: ResponsableService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar // Inyecta MatSnackBar para mostrar mensajes
   ) { }
 
   ngOnInit(): void {
@@ -29,15 +29,12 @@ export class FacebookComponent implements OnInit {
       this.fbService.getProfile().then(profile => {
         this.user = profile;
 
-        // Obtener la URL de la imagen de perfil o un ícono por defecto
         const photoUrl = profile.picture?.data?.url || 'URL_ICONO_POR_DEFECTO';
         this.user.photoUrl = photoUrl;
+        
         console.log('Foto de perfil:', this.user.photoUrl);
-
-        // Actualizar la imagen de perfil en el servicio
         this.fbService.setProfileImageUrl(photoUrl);
 
-        // Dividir el nombre completo para otros datos
         const nombreCompleto = profile.name.split(' ');
         const nombres = nombreCompleto.slice(0, -2).join(' ');
         const appPaterno = nombreCompleto[nombreCompleto.length - 2] || '';
@@ -50,13 +47,17 @@ export class FacebookComponent implements OnInit {
           nombres: nombres || profile.name,
           appPaterno: appPaterno,
           appMaterno: appMaterno,
-          correoElec: profile.email || '', // Si no hay email, valor por defecto
+          correoElec: profile.email || '',
           telefono: '',
           contrasenia: '',
+          imagen_url: photoUrl, // Guarda la URL de la imagen de perfil aquí
           idRoles: 2
         };
 
         this.user.nuevoResponsable = nuevoResponsable;
+
+        // Llama a la función para registrar al usuario y guardar la imagen
+        this.confirmarRegistro();
       }).catch(error => {
         console.error('Error obteniendo el perfil:', error);
       });
@@ -78,7 +79,7 @@ export class FacebookComponent implements OnInit {
       this.responsableService.loggedIn.next(true);
       this.registroExitoso();
       this.router.navigate(['/inicio/inicio']);
-
+      
       if (responsable.correoElec) {
         this.responsableService.enviarCorreoVerificacion(responsable.correoElec).subscribe(
           resp => {
@@ -109,5 +110,13 @@ export class FacebookComponent implements OnInit {
       duration: 2000,
       panelClass: ['success-snackbar'],
     });
+
+    // Actualiza la imagen en la base de datos
+    this.responsableService.updateProfileImageUrl(this.user.nuevoResponsable.id, this.user.photoUrl)
+      .subscribe(response => {
+        console.log('Imagen de perfil actualizada en la base de datos');
+      }, error => {
+        console.error('Error al actualizar la imagen en la base de datos:', error);
+      });
   }
 }
