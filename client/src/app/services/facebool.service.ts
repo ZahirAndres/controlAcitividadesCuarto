@@ -73,4 +73,5 @@ export class FaceboolService {
       }).catch((error: any) => reject(error));
     });
   }
+  
 }

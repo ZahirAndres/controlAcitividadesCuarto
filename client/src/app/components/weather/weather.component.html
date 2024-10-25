@@ -1,0 +1,61 @@
+
+
+<div class='top'></div>
+<div class='text'>
+  <h1 class="titlep">Pronóstico del Clima</h1>
+</div>
+<br>
+<div id="map" style="width: 100%; height: 500px;"></div>
+<app-cancha-info [cancha]="selectedCancha" [temperatura]="weatherData?.main?.temp"></app-cancha-info>
+
+
+<div class="weather-card" *ngIf="weatherData">
+  <div class="container">
+    <div class="card">
+      <div class="front">
+        <div class="logo"><span></span></div>
+      </div>
+      <div class="back">
+        <h1 class="message">{{ friendlyWeatherMessage }}</h1>
+        <ul>
+          <li>Zahir</li>
+          <li>ZCGI</li>
+          <li>Cesar</li>
+          </ul>
+      </div>
+      </div>
+    </div>
+    <br>
+    <br>
+  <h3>Clima Actual en {{ weatherData.name }}</h3>
+  <img [src]="'https://openweathermap.org/img/wn/' + weatherData.weather[0].icon + '@2x.png'" alt="Icono del clima">
+  <div class="weather-info">
+    <p>Temperatura: {{ weatherData.main.temp }}°C</p>
+    <p>Descripción: {{ weatherData.weather[0].description | titlecase }}</p>
+    <p>Temp. Mínima: {{ weatherData.main.temp_min }}°C</p>
+    <p>Temp. Máxima: {{ weatherData.main.temp_max }}°C</p>
+    <p>Humedad: {{ weatherData.main.humidity }}%</p>
+    <p>Presión: {{ weatherData.main.pressure }} hPa</p>
+  
+  </div>
+</div>
+<div class="button-container">
+<button class="toggle-button" (click)="toggleForecast()">
+  <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow.png" alt="Icono de pronóstico" />
+</button>
+</div>
+
+<div *ngIf="showForecast && forecastData" class="forecast-list">
+  
+  <div *ngFor="let forecast of forecastData.list" class="forecast-item">
+    <h3>{{ (forecast.dt * 1000) | date:'dd/MM/yyyy HH:mm' }}</h3>
+    <img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'" alt="Icono pronóstico">
+    <p>Temp: {{ forecast.main.temp }}°C</p>
+    <p>Descripción: {{ forecast.weather[0].description | titlecase }}</p>
+ 
+  </div>
+</div>
+<a routerLink="/inicio/cancha" class="floating-button">
+  <i class="fas fa-arrow-left"></i>
+</a>
+

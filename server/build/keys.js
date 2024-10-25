@@ -5,6 +5,7 @@ exports.default = {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'controlActividadesUtng'
+        database: 'controlActividadesUtng',
+       
     }
 };

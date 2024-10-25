@@ -26,7 +26,7 @@ export class ReservasService {
     return this.http.get<Reservas>(`${this.API_URI}/${idReserva}`);
   }
 
-  getReservaPorCancha(idCancha: String| number): Observable<Reservas[]>{
+getReservaPorCancha(idCancha: String| number): Observable<Reservas[]>{
     return this.http.get<Reservas[]>(`${this.API_URI}/porCancha/${idCancha}`);
   }
 
@@ -70,6 +70,12 @@ export class ReservasService {
   checkReserva(horaInicio: string, horaFin: string, fecha: string) {
     return this.http.post<CheckReservaResponse>(`${this.API_URI}/check`, { horaInicio, horaFin, fecha });
   }
+  // responsable.service.ts
+updateProfileImageUrl(id: string, photoUrl: string): Observable<any> {
+  const url = `${this.API_URI}/responsables/${id}/updateProfileImage`; // Asegúrate de que esta URL sea correcta
+  return this.http.put(url, { photoUrl });
+}
+
 
 
 

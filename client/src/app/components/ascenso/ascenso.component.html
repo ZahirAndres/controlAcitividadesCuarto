@@ -1,11 +1,26 @@
 <div class="general">
   <form [formGroup]="ascensoForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Razón del Ascenso</mat-label>
-      <input matInput formControlName="razon" required>
-      <mat-error *ngIf="ascensoForm.get('razon')?.hasError('required')">
-        La razón del ascenso es requerida.
-      </mat-error>
+    <mat-form-field><div class="general">
+      <form [formGroup]="ascensoForm" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+          <mat-label>Razón del Ascenso</mat-label>
+          <input matInput formControlName="razon" required>
+          <mat-error *ngIf="ascensoForm.get('razon')?.hasError('required')">
+            La razón del ascenso es requerida.
+          </mat-error>
+        </mat-form-field>
+    
+        <div class="actions">
+          <button mat-raised-button color="primary" type="submit">Solicitar Ascenso</button>
+          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+          
+        </div>
+      </form>
+    
+      <div *ngIf="showProgressBar" id="paypal-button-container"></div>
+    </div>
+      <mat-label>Razón</mat-label>
+      <textarea matInput formControlName="razon" required></textarea>
     </mat-form-field>
 
     <div class="actions">
