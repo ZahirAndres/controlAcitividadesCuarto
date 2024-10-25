@@ -1,11 +1,4 @@
-<div class="formulario-flotante">
-  <div *ngIf="notificationService.notification$ | async as notificationMessage" class="notification">
-    {{ notificationMessage }} <i class="fas fa-check"></i>
-  </div>
-  <h2>Razón del Ascenso</h2>
-  <div *ngIf="showProgressBar" class="progress-bar-container">
-    <div class="progress-bar"></div>
-  </div>
+<div class="general">
   <form [formGroup]="ascensoForm" (ngSubmit)="onSubmit()">
     <mat-form-field><div class="general">
       <form [formGroup]="ascensoForm" (ngSubmit)="onSubmit()">
@@ -29,9 +22,13 @@
       <mat-label>Razón</mat-label>
       <textarea matInput formControlName="razon" required></textarea>
     </mat-form-field>
+
     <div class="actions">
-      <button mat-button type="button" class="cancel-button" (click)="onCancel()">Cancelar</button>
-      <button mat-raised-button color="primary" type="submit" class="submit-button">Enviar</button>
-    </div> 
+      <button mat-raised-button color="primary" type="submit">Solicitar Ascenso</button>
+      <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+      
+    </div>
   </form>
+
+  <div *ngIf="showProgressBar" id="paypal-button-container"></div>
 </div>

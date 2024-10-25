@@ -12,7 +12,7 @@
 </button>
 
 
-  <div class="row">
+  <div class="row"> 
     <div *ngFor="let cancha of nearbyCanchas" class="col-md-4 mb-4">
       <div class="card h-100"> 
         <div class="card-body">
@@ -23,7 +23,7 @@
           <p class="card-text"><strong>Estado:</strong> {{ cancha.estado }}</p>
           <p class="card-text"><strong>Propietario:</strong> {{ cancha.nombUsuario }}</p>
           <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-info" routerLink="/mapa" routerLinkActive="active">Ver</button>
+            <button class="btn btn-info" (click)="verReservaPorCancha(cancha.idCancha )">Ver</button>
           </div>
         </div>
       </div>

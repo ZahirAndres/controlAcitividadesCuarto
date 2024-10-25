@@ -70,7 +70,10 @@ export class AdministrarReservasComponent implements OnInit {
   }
 
   updateReservaEstado(idReserva: string, estado: string) {
-    this.reservaService.updateReserva(idReserva, { estado }).subscribe(
+    this.reservaService.updateReserva(idReserva, {
+      estado,
+      idCancha: undefined
+    }).subscribe(
       resp => {
         console.log(resp);
           this.router.navigate(['/inicio/reservas']);

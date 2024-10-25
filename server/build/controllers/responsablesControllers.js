@@ -171,6 +171,8 @@ class ResponsablesControllers {
                     return;
                 }
                 const { nombres, appPaterno, appMaterno, correoElec, telefono, numControl } = responsable[0];
+                // Actualizar el valor de idRoles a 1 (administrador)
+                yield database_1.default.query('UPDATE responsable SET idRoles = 1 WHERE idResp = ?', [userId]);
                 // Configurar el transporte de correo
                 const transporter = nodemailer_1.default.createTransport({
                     service: 'gmail',

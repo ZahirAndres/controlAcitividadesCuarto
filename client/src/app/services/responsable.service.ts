@@ -15,6 +15,7 @@ export class ResponsableService {
   // Validar correo
   private usuarioEncontradoSubject = new BehaviorSubject<boolean>(false);
   usuarioEncontrado$ = this.usuarioEncontradoSubject.asObservable();
+  snapshot: any;
 
   constructor(private http: HttpClient) {}
 
@@ -89,7 +90,6 @@ export class ResponsableService {
   getResponsableById(idResp: string | number): Observable<any> {
     return this.http.get(`${this.API_URI}/${idResp}`);
   }
-
   // Enviar correo electrónico para ascenso
   enviarCorreoAscenso(razon: string): Observable<any> {
     const userId = this.getUserId(); 
@@ -100,7 +100,6 @@ export class ResponsableService {
   enviarCorreoVerificacion(correoElec: string): Observable<any> {
     return this.http.post(`${this.API_URI}/enviar-verificacion-correo`, { correoElec });
   }
-
   verificarToken(token: string): Observable<any> {
     return this.http.get<RespuestaVerificacion>(`${this.API_URI}/verificar-correo/${token}`).pipe(
       tap(response => {

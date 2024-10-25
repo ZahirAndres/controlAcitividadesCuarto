@@ -21,6 +21,7 @@ export class ReservanosComponent implements OnInit {
   availableStartTimes: string[] = [];
   availableEndTimes: string[] = [];
   minDate: string = '';
+  idCancha: number | undefined; 
 
   isGuardarDisabled: boolean = false;
 
@@ -43,6 +44,11 @@ export class ReservanosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Obtener idCancha de los parámetros de la ruta
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.idCancha = +params['idCancha']; // Asegúrate de que esto sea un número
+    });
+
     const today = new Date();
     const day = (today.getDate() + 2).toString().padStart(2, '0');
     const month = (today.getMonth() + 1).toString().padStart(2, '0'); 
@@ -57,13 +63,12 @@ export class ReservanosComponent implements OnInit {
       this.updateAvailableStartTimes();
     });
 
-    //actualiza el horario en caso de estar ocupado el horario seleccionado
-    this.reservaForm.get('fecha')
-    &&this.reservaForm.get('horaInicio')
-    &&this.reservaForm.get('horaFin')?.valueChanges.subscribe(val => {
+    // Actualiza el horario en caso de estar ocupado el horario seleccionado
+    this.reservaForm.get('fecha') &&
+    this.reservaForm.get('horaInicio') &&
+    this.reservaForm.get('horaFin')?.valueChanges.subscribe(val => {
       this.reservaOcupada();
     });
-
 
     if (idReserva) {
       this.reservasService.getReserva(idReserva).subscribe(
@@ -159,20 +164,19 @@ export class ReservanosComponent implements OnInit {
   }
 
   saveReserva(): void {
-
     if (this.isGuardarDisabled || !this.reservaForm.valid) {
       return;
     }
-  
+
     const currentDateTime = new Date(); // Hora y fecha actuales
     const reservaDateTime = new Date(this.reservaForm.get('fecha')?.value);
     const [horaInicioHour, horaInicioMinute] = this.reservaForm.get('horaInicio')?.value.split(':').map(Number);
-  
+
     reservaDateTime.setHours(horaInicioHour, horaInicioMinute, 0, 0);
-  
+
     // Verifica que la hora de la reserva sea al menos 3 horas después de la hora actual
     const threeHoursBefore = new Date(currentDateTime.getTime() + 3 * 60 * 60 * 1000); // Hora actual + 3 horas
-  
+
     if (reservaDateTime <= threeHoursBefore) {
       this.snackBar.open('Debe reservar al menos con 3 horas de antelación', 'Cerrar', {
         duration: 3000,
@@ -181,14 +185,15 @@ export class ReservanosComponent implements OnInit {
       });
       return;
     }
-  
+
     if (this.reservaForm.valid) {
       const responsableId = this.responsableService.getUserId();
       const reserva = {
         ...this.reservaForm.value,
-        idResp: responsableId
+        idResp: responsableId,
+        idCancha: this.idCancha
       };
-  
+
       this.reservasService.saveReserva(reserva).subscribe(
         resp => {
           this.snackBar.open('Reserva guardada exitosamente', 'Cerrar', {
@@ -203,6 +208,7 @@ export class ReservanosComponent implements OnInit {
       );
     }
   }
+
   
 
   reset(): void {
