@@ -310,7 +310,5 @@ class ResponsablesControllers {
             }
         });
     }
-    
-    
 }
 exports.responsablesControllers = new ResponsablesControllers();
