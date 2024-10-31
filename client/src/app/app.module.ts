@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { NgChartsModule } from 'ng2-charts';
 // Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -76,11 +76,13 @@ import { DateFormatPipe } from './date-format.pipe';
 import { CanchaAddComponent } from './components/cancha-add/cancha-add.component';
 import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+
 import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
 import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 import { WeatherComponent } from './components/weather/weather.component';
+
 
 
 
@@ -125,6 +127,7 @@ import { WeatherComponent } from './components/weather/weather.component';
     WeatherComponent    
   ],
   imports: [
+    
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -142,6 +145,7 @@ import { WeatherComponent } from './components/weather/weather.component';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -152,7 +156,10 @@ import { WeatherComponent } from './components/weather/weather.component';
     MatMenuModule,
     MatTooltipModule,
     MatProgressBarModule,
-    LeafletModule
+    NgChartsModule,
+    LeafletModule,
+    
+    
   ],
   providers: [
     ReservasService,

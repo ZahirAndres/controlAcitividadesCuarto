@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Cancha } from '../../models/canchas';
+import { ChartOptions, ChartData, ChartType } from 'chart.js';
+
 declare var H: any;
 
 
@@ -33,6 +35,38 @@ export class WeatherComponent implements OnInit {
   private API_URI = 'http://localhost:3000/canchas'; // Reemplaza con tu URI real
   private infoBubble: any; // Variable para almacenar el InfoBubble
   temperatura: number | string = 'N/A';
+  mostrarGrafica: boolean = false; // Variable para controlar la visibilidad de las gráficas
+  public lineChartOptions: ChartOptions<'line'> = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        backgroundColor: '#4CAF50', // Color del fondo del tooltip
+        titleColor: '#fff', // Color del título del tooltip
+        bodyColor: '#fff', // Color del cuerpo del tooltip
+        borderColor: '#ddd', // Color del borde del tooltip
+        borderWidth: 1, // Grosor del borde del tooltip
+      },
+    },
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+  };
+  
+  public lineChartData: ChartData<'line'> = {
+    labels: [],  // Se llenará con las fechas del pronóstico
+    datasets: [
+      {
+        data: [],  // Se llenará con los valores de temperatura
+        label: 'Temperatura',
+        borderColor: 'rgba(135, 206, 235, 1)',
+        backgroundColor: 'rgba(255, 255, 0, 0.5)',
+        fill: true,
+      },
+    ],
+  };
+  public lineChartLegend = true;
+  public lineChartType: ChartType = 'line';
 
   @Output() coordenadasSeleccionadas = new EventEmitter<{ lat: number, lng: number }>();
   public friendlyWeatherMessage: string = ''; // Propiedad para almacenar el mensaje amigable
@@ -136,6 +170,10 @@ export class WeatherComponent implements OnInit {
       console.error('Error al obtener los datos del clima', error);
     });
   }
+  toggleGrafica() {
+    this.mostrarGrafica = !this.mostrarGrafica;
+  }
+
 
   private addSelectedCircleWithWeather(lat: number, lng: number, weatherCondition: string, weatherIcon: string): void {
     const circleColor = this.getCircleColor(weatherCondition);
@@ -257,6 +295,7 @@ export class WeatherComponent implements OnInit {
       });
     }
     
+    
     const infoBubbleDiv = document.getElementById('info-bubble');
     if (infoBubbleDiv) {
       infoBubbleDiv.addEventListener('mouseleave', () => {
@@ -281,10 +320,24 @@ export class WeatherComponent implements OnInit {
 
     this.http.get<ForecastResponse>(url).subscribe(data => {
       this.forecastData = data;
+      this.updateForecastChart(data); 
     }, error => {
       console.error('Error al obtener el pronóstico', error);
     });
   }
+  private updateForecastChart(forecast: ForecastResponse): void {
+    if (forecast && forecast.list) {
+      // Filtra los datos para tomar solo aquellos que corresponden a cada 6 horas
+      const filteredList = forecast.list.filter((item, index) => index % 2 === 0); // Toma cada segundo elemento
+      const labels = filteredList.map(item => new Date(item.dt * 1000).toLocaleDateString());
+      const temperatures = filteredList.map(item => item.main.temp);
+  
+      // Actualizar los datos de la gráfica
+      this.lineChartData.labels = labels;
+      this.lineChartData.datasets[0].data = temperatures;
+    }
+  }
+  
 
   public toggleForecast(): void {
     this.showForecast = !this.showForecast;
