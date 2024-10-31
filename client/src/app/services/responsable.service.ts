@@ -91,10 +91,11 @@ export class ResponsableService {
     return this.http.get(`${this.API_URI}/${idResp}`);
   }
   // Enviar correo electrónico para ascenso
-  enviarCorreoAscenso(razon: string): Observable<any> {
+  enviarCorreoAscenso(razon: string, payerInfo: any): Observable<any> {
     const userId = this.getUserId(); 
-    return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId });
+    return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId, payerInfo });
   }
+  
 
   // Verificar el correo
   enviarCorreoVerificacion(correoElec: string): Observable<any> {

@@ -17,7 +17,7 @@ class ResponsablesRoutes {
         this.router.delete('/:idResp', responsablesControllers_1.responsablesControllers.delete);
         this.router.put('/:idResp', responsablesControllers_1.responsablesControllers.updateResponsable);
         this.router.put('/contrasenia/:idResp', responsablesControllers_1.responsablesControllers.updateContrasenia); // Nueva ruta para actualizar contraseña
-        // Nueva ruta para enviar correo de ascenso
+        // Nueva ruta para enviar correo de ascenso //Ruta para el reporte de pago
         this.router.post('/ascenso/correo', responsablesControllers_1.responsablesControllers.enviarCorreoAscenso);
         //Nueva ruta para verificar el correo
         this.router.post('/enviar-verificacion-correo', responsablesControllers_1.responsablesControllers.enviarCorreoVerificacion);
