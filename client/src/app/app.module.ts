@@ -81,6 +81,7 @@ import { CanchaInfoComponent } from './components/cancha-info/cancha-info.compon
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 import { WeatherComponent } from './components/weather/weather.component';
+import { StreamComponent } from './components/stream/stream.component';
 
 
 
@@ -122,7 +123,8 @@ import { WeatherComponent } from './components/weather/weather.component';
     CanchaInfoComponent,
     FacebookComponent,
     AyudanosConocerteComponent,
-    WeatherComponent    
+    WeatherComponent,
+    StreamComponent    
   ],
   imports: [
     BrowserModule,

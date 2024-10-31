@@ -5,7 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ResponsableService } from '../../services/responsable.service';
 import { NotificationService } from '../../services/notificacion.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { loadScript, PayPalNamespace } from '@paypal/paypal-js';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+
+declare var paypal: any;
 
 @Component({
   selector: 'app-ascenso',
@@ -15,14 +18,17 @@ import { loadScript, PayPalNamespace } from '@paypal/paypal-js';
 export class AscensoComponent implements OnInit {
   ascensoForm: FormGroup;
   showProgressBar = false;
-  private paypal: PayPalNamespace | null = null;
+  private paypalLoaded: boolean = false;
+  public currency: string = 'MXN';
+  public total: number = 200.00;
 
   constructor(
     private responsableService: ResponsableService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    public notificationService: NotificationService
+    public notificationService: NotificationService,
+    private http: HttpClient
   ) {
     this.ascensoForm = this.fb.group({
       razon: ['', Validators.required]
@@ -33,62 +39,81 @@ export class AscensoComponent implements OnInit {
     this.loadPayPalScript();
   }
 
-  loadPayPalScript() {
-    loadScript({ clientId: "AcaWZbFYfVqdakSWVvzBnQ9UhR1fi_l1y9pwq2sCu95G2tJsBo4qg7uAH9uLZAQ8zl4I-JqboC50gDSx" })
-      .then((paypal) => {
-        this.paypal = paypal;
-        this.renderPayPalButton();
-      })
-      .catch((err) => {
-        console.error('Error al cargar PayPal:', err);
+  loadPayPalScript(): void {
+    if (this.paypalLoaded) {
+      this.initPayPalButton();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${this.getClientId()}&currency=${this.currency}&locale=es_MX`;
+    script.onload = () => {
+      this.paypalLoaded = true;
+      this.initPayPalButton();
+    };
+    script.onerror = () => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Error al cargar el script de PayPal.',
       });
+    };
+    document.body.appendChild(script);
   }
 
-  renderPayPalButton() {
-    if (this.paypal && typeof this.paypal.Buttons === 'function') {
-      this.paypal.Buttons({
-        createOrder: (data, actions) => {
-          if (actions.order) {
-            return actions.order.create({
-              intent: 'CAPTURE',
-              purchase_units: [{
-                amount: {
-                  currency_code: 'USD',
-                  value: '10.00'
-                }
-              }]
-            });
-          } else {
-            console.error('actions.order es undefined');
-            return Promise.reject();
-          }
-        },
-        onApprove: (data, actions) => {
-          if (actions.order) {
-            return actions.order.capture().then((details: any) => {
-              this.onSubscriptionSuccess(details);
-            });
-          } else {
-            console.error('actions.order es undefined');
-            return Promise.reject();
-          }
-        },
-        onError: (err) => {
-          console.error('Error en el pago:', err);
-          /* this.envioFallido(); */
-        }
-      }).render('#paypal-button-container');
-    } else {
-      console.error('PayPal no está disponible.');
-    }
+  getClientId(): string {
+    return 'AcaWZbFYfVqdakSWVvzBnQ9UhR1fi_l1y9pwq2sCu95G2tJsBo4qg7uAH9uLZAQ8zl4I-JqboC50gDSx';
+  }
+
+  initPayPalButton(): void {
+    paypal.Buttons({
+      createOrder: (data: any, actions: any) => {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              currency_code: this.currency,
+              value: this.total.toFixed(2)
+            }
+          }]
+        });
+      },
+      onApprove: (data: any, actions: any) => {
+        return actions.order.capture().then((details: any) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Pago completado',
+            text: 'Pago realizado por: ' + details.payer.name.given_name,
+          });
+          console.log('Detalles del pago:', details);
+          this.onSubscriptionSuccess(details);
+        });
+      }
+    }).render('#paypal-button-container');
   }
 
   onSubscriptionSuccess(details: any) {
     const razon = this.ascensoForm.get('razon')?.value;
-    this.responsableService.enviarCorreoAscenso(razon).subscribe(
+    const paymentDetails = { ...details, razon };
+  
+    // Obtén la información del pagador
+    const payerInfo = {
+      nombre: details.payer.name.given_name,
+      apellido: details.payer.name.surname,  
+      correo: details.payer.email_address,      
+      idTransaccion: details.id,                
+      monto: details.purchase_units[0].amount.value, 
+      moneda: details.purchase_units[0].amount.currency_code, 
+      estado: details.status,                  
+      fecha: new Date().toISOString(),         
+      metodoPago: "PayPal",                  
+      descripcion: "Suscripción a servicios premium" 
+  };
+  
+    this.responsableService.enviarCorreoAscenso(razon, payerInfo).subscribe(
       response => {
         console.log('Correo enviado exitosamente:', response);
         this.notificationService.showNotification('Solicitud de ascenso enviada correctamente');
+        this.sendPaymentDetailsToBackend(paymentDetails);
         setTimeout(() => {
           this.showProgressBar = false;
           this.dialog.closeAll();
@@ -101,6 +126,7 @@ export class AscensoComponent implements OnInit {
       }
     );
   }
+  
 
   onSubmit() {
     if (this.ascensoForm.valid) {
@@ -117,7 +143,7 @@ export class AscensoComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result === 'confirm') {
-          this.renderPayPalButton();
+          this.initPayPalButton();
         } else {
           this.showProgressBar = false;
         }
@@ -147,4 +173,17 @@ export class AscensoComponent implements OnInit {
       panelClass: ['info-snackbar']
     });
   }
+
+  // Enviar detalles del pago al backend
+  sendPaymentDetailsToBackend(details: any): void {
+    this.http.post('https://localhost:3000/responsables/pago', details)
+      .subscribe(
+        response => {
+          console.log('Detalles del pago guardados exitosamente:', response);
+        },
+        error => {
+          console.error('Error al guardar los detalles del pago:', error);
+        }
+      );
+  } 
 }

@@ -1,0 +1,11 @@
+<div>
+    <h2>Iniciar Stream en Twitch</h2>
+  
+    <button (click)="login()">Iniciar Sesión con Twitch</button>
+  
+    <div *ngIf="accessToken">
+      <input type="text" [(ngModel)]="streamTitle" placeholder="Título del Stream" />
+      <button (click)="startStream()">Actualizar Título del Stream</button>
+    </div>
+  </div>
+  
