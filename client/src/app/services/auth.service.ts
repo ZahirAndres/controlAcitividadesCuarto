@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
   private clientId = 'tbwmf2ibi9w4acueszpb7rqz2fsozb';
-  private redirectUri = 'http://localhost:4200/inicio/inicio'; 
+  private redirectUri = 'http://localhost:4200/inicio/cancha'; 
   private responseType = 'token';
 
   constructor() {}
