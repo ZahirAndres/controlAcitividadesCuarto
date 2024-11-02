@@ -1,11 +1,22 @@
 <div>
-    <h2>Iniciar Stream en Twitch</h2>
-  
-    <button (click)="login()">Iniciar Sesión con Twitch</button>
-  
-    <div *ngIf="accessToken">
-      <input type="text" [(ngModel)]="streamTitle" placeholder="Título del Stream" />
-      <button (click)="startStream()">Actualizar Título del Stream</button>
-    </div>
+  <h2>Iniciar Stream en Twitch</h2>
+
+  <button (click)="login()">Iniciar Sesión con Twitch</button>
+
+  <div *ngIf="accessToken">
+    <input type="text" [(ngModel)]="streamTitle" placeholder="Título del Stream" />
+    <button (click)="startStream()">Actualizar Título del Stream</button>
   </div>
-  
+
+  <div *ngIf="activeStream">
+    <h2>Stream en Vivo: {{ activeStream.title }}</h2>
+    <iframe 
+      src="https://player.twitch.tv/?channel={{ activeStream.user_name }}&parent=localhost" 
+      height="400" 
+      width="600" 
+      frameborder="0" 
+      scrolling="no" 
+      allowfullscreen="true">
+    </iframe>
+  </div>
+</div>

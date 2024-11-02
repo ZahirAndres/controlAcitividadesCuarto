@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { TwitchService } from '../../services/twitch.service';
+import { AppComponent } from '../../app.component'; // Asegúrate de importar el AppComponent
 
 @Component({
   selector: 'app-stream',
@@ -10,14 +11,20 @@ import { TwitchService } from '../../services/twitch.service';
 export class StreamComponent implements OnInit {
   accessToken: string | null = null;
   streamTitle: string = '';
+  activeStream: any = null;
 
-  constructor(private authService: AuthService, private twitchService: TwitchService) {}
+  constructor(
+    private authService: AuthService, 
+    private twitchService: TwitchService,
+    private appComponent: AppComponent // Inyecta el AppComponent
+  ) {}
 
   ngOnInit(): void {
     this.handleAuthResponse();
   }
 
   login() {
+    this.appComponent.preventLogout(); // Previene el logout antes de redirigir
     window.location.href = this.authService.getAuthUrl();
   }
 
@@ -34,6 +41,8 @@ export class StreamComponent implements OnInit {
 
       window.location.hash = '';
     }
+
+    this.appComponent.enableLogout(); // Permite el logout de nuevo después de la redirección
   }
   
   async startStream() {
@@ -44,17 +53,17 @@ export class StreamComponent implements OnInit {
     
     try {
       const userInfo = await this.twitchService.getUserInfo();
-      console.log('User Info:', userInfo); // Aquí puedes ver los datos del usuario
-  
-      // Actualiza la información del stream (título, etc.)
-      const data = await this.twitchService.updateStreamInfo(this.streamTitle);
-      console.log('Stream info updated:', data);
-  
-      // Aquí puedes mostrar un mensaje al usuario indicando que debe iniciar su transmisión en OBS
+      console.log('User Info:', userInfo);
+ 
+      await this.twitchService.updateStreamInfo(this.streamTitle);
+      console.log('Stream info updated.');
+
+      this.activeStream = await this.twitchService.getActiveStream();
+      console.log('Active Stream:', this.activeStream);
+ 
       alert('La información de tu stream ha sido actualizada. Por favor, inicia OBS y comienza a transmitir con la clave de transmisión.');
     } catch (error) {
       console.error('Error updating stream info:', error);
     }
   }
-  
 }

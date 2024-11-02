@@ -47,21 +47,20 @@ export class TwitchService {
       throw error; // Lanza el error para ser manejado en el componente
     }
   }
-  
 
+  // Método para obtener el stream activo del usuario
+  async getActiveStream() {
+    const userInfo = await this.getUserInfo(); // Obtiene información del usuario autenticado
+    const broadcasterId = userInfo.id; // Obtén el ID del broadcaster
+    const url = `${this.baseUrl}/streams?user_id=${broadcasterId}`; // Endpoint para obtener el stream activo
 
-
-// twitch.service.ts
-async getGameId(gameName: string) {
-  const url = `${this.baseUrl}/games?name=${gameName}`;
-  const response = await axios.get(url, {
+    const response = await axios.get(url, {
       headers: {
-          'Client-ID': this.clientId,
-          'Authorization': `Bearer ${localStorage.getItem('twitchAccessToken')}`
+        'Client-ID': this.clientId,
+        'Authorization': `Bearer ${localStorage.getItem('twitchAccessToken')}`
       }
-  });
-  return response.data.data[0]?.id; // Devuelve el ID del juego
-}
+    });
 
-
+    return response.data.data.length > 0 ? response.data.data[0] : null; // Devuelve el stream activo o null si no hay
+  }
 }
