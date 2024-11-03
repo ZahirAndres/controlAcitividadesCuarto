@@ -1,2 +1,84 @@
+<div class="twitch-container">
+  <div class="header">
+    <h1>¡Únete a nosotros en Twitch para disfrutar de emocionantes transmisiones en vivo!</h1>
+    <button (click)="fetchStreams()" class="btn-twitch" [class.loading]="isLoading">
+      <i class="fas fa-sync-alt" [class.fa-spin]="isLoading"></i>
+      {{ isLoading ? 'Cargando...' : 'Actualizar Streams' }}
+    </button>
+  </div>
+
+  <div *ngIf="activeStreamUrl" class="stream-container" [@fadeIn]>
+    <div class="stream-wrapper">
+      <iframe 
+        [src]="activeStreamUrl | safe: 'resourceUrl'" 
+        width="100%" 
+        height="500" 
+        frameborder="0" 
+        scrolling="no" 
+        allowfullscreen="true">
+      </iframe>
+      <div class="stream-info" *ngIf="activeStream">
+        <div class="viewer-count">
+          <i class="fas fa-user"></i>
+          {{ activeStream.viewer_count | number }} espectadores
+        </div>
+        <div class="stream-tags">
+          <span class="tag" *ngFor="let tag of activeStream.tags">{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section" [@fadeIn]>
+    <div class="streams-list" *ngIf="streamsByUser.length > 0">
+      <h2>Streams Activos</h2>
+      <div class="streams-grid">
+        <div *ngFor="let stream of streamsByUser" class="stream-card" (click)="selectStream(stream)">
+          <div class="thumbnail" [style.backgroundImage]="'url(' + stream.thumbnail_url.replace('{width}x{height}', '440x248') + ')'">
+            <div class="live-badge">EN VIVO</div>
+            <div class="viewer-count">
+              <i class="fas fa-user"></i>
+              {{ stream.viewer_count | number }}
+            </div>
+          </div>
+          <div class="stream-details">
+            <h3>{{ stream.title }}</h3>
+            <div class="streamer-info">
+              <img [src]="stream.profile_image_url" [alt]="stream.user_name" class="streamer-avatar">
+              <span>{{ stream.user_name }}</span>
+            </div>
+            <p class="game-name">Jugando: {{ stream.game_name }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!streamsByUser.length && userProfile" class="user-profile-section" [@fadeIn]>
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-banner" [style.backgroundImage]="'url(' + userProfile.offline_image_url + ')'"></div>
+          <img [src]="userProfile.profile_image_url" [alt]="userProfile.display_name" class="profile-avatar">
+        </div>
+        <div class="profile-info">
+          <h2>{{ userProfile.display_name }}</h2>
+          <p class="bio">{{ userProfile.description }}</p>
+          <div class="stats">
+            <div class="stat">
+              <i class="fas fa-heart"></i>
+              <span>{{ userProfile.view_count | number }} Visitas</span>
+            </div>
+            <div class="stat">
+              <i class="fas fa-calendar"></i>
+              <span>Se unió {{ userProfile.created_at | date }}</span>
+            </div>
+          </div>
+          <a [href]="'https://www.twitch.tv/' + userProfile.login" target="_blank" class="btn-twitch">
+            <i class="fab fa-twitch"></i> Visitar Canal
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-reglamento></app-reglamento>
- 

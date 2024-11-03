@@ -82,6 +82,7 @@ import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 import { WeatherComponent } from './components/weather/weather.component';
 import { StreamComponent } from './components/stream/stream.component';
+import { SafePipe } from './safe.pipe';
 
 
 
@@ -124,7 +125,8 @@ import { StreamComponent } from './components/stream/stream.component';
     FacebookComponent,
     AyudanosConocerteComponent,
     WeatherComponent,
-    StreamComponent    
+    StreamComponent,
+    SafePipe    
   ],
   imports: [
     BrowserModule,
