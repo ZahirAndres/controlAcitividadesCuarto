@@ -10,7 +10,6 @@ export class TwitchService {
 
   constructor() {}
 
-  // Método para obtener información del usuario
   async getUserInfo() {
     const accessToken = localStorage.getItem('twitchAccessToken');
     const url = `${this.baseUrl}/users`;
@@ -21,46 +20,121 @@ export class TwitchService {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data.data[0]; // Devuelve el primer usuario (debería ser el autenticado)
+    return response.data.data[0];
   }
 
-  async updateStreamInfo(title: string) {
-    const userInfo = await this.getUserInfo(); // Obtener la información del usuario autenticado
-    const broadcasterId = userInfo.id; // Obtén el ID del broadcaster
-  
-    const url = `${this.baseUrl}/channels?broadcaster_id=${broadcasterId}`; // Endpoint para actualizar la información del canal
-  
-    try {
-      const response = await axios.patch(url, {
-        title: title, // Título del stream
-      }, {
-        headers: {
-          'Client-ID': this.clientId,
-          'Authorization': `Bearer ${localStorage.getItem('twitchAccessToken')}`,
-          'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido sea JSON
-        }
-      });
-  
-      return response.data; // Devuelve la respuesta de la API (información actualizada del canal)
-    } catch (error: any) {
-      console.error('Error updating stream info:', error.response?.data || error.message); // Manejo de errores
-      throw error; // Lanza el error para ser manejado en el componente
-    }
-  }
-
-  // Método para obtener el stream activo del usuario
   async getActiveStream() {
-    const userInfo = await this.getUserInfo(); // Obtiene información del usuario autenticado
-    const broadcasterId = userInfo.id; // Obtén el ID del broadcaster
-    const url = `${this.baseUrl}/streams?user_id=${broadcasterId}`; // Endpoint para obtener el stream activo
+    const userInfo = await this.getUserInfo();
+    const broadcasterId = userInfo.id;
+    const url = `${this.baseUrl}/streams?user_id=${broadcasterId}`;
 
     const response = await axios.get(url, {
       headers: {
         'Client-ID': this.clientId,
-        'Authorization': `Bearer ${localStorage.getItem('twitchAccessToken')}`
-      }
+        Authorization: `Bearer ${localStorage.getItem('twitchAccessToken')}`,
+      },
     });
 
-    return response.data.data.length > 0 ? response.data.data[0] : null; // Devuelve el stream activo o null si no hay
+    return response.data.data.length > 0 ? response.data.data[0] : null;
+  }
+
+  async updateStreamInfo(title: string) {
+    const userInfo = await this.getUserInfo();
+    const broadcasterId = userInfo.id;
+
+    const url = `${this.baseUrl}/channels?broadcaster_id=${broadcasterId}`;
+
+    try {
+      const response = await axios.patch(
+        url,
+        { title: title },
+        {
+          headers: {
+            'Client-ID': this.clientId,
+            Authorization: `Bearer ${localStorage.getItem('twitchAccessToken')}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      console.error('Error updating stream info:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async getAllStreamTags(accessToken: string) {
+    const url = `${this.baseUrl}/tags/streams`;
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          'Client-ID': this.clientId,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data.data;
+    } catch (error: any) {
+      console.error('Error fetching stream tags:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async updateStreamTags(broadcasterId: string, tagIds: string[], accessToken: string) {
+    const url = `${this.baseUrl}/streams/tags?broadcaster_id=${broadcasterId}`;
+
+    try {
+      const response = await axios.put(
+        url,
+        { tag_ids: tagIds },
+        {
+          headers: {
+            'Client-ID': this.clientId,
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return response.data;
+    } catch (error: any) {
+      console.error('Error updating stream tags:', error.response?.data || error.message);
+      throw error;
+    }
+  }
+
+  async getUserInfoByUsername(userName: string) {
+    const url = `${this.baseUrl}/users?login=${userName}`;
+    const accessToken = localStorage.getItem('twitchAccessToken');
+
+    const response = await axios.get(url, {
+      headers: {
+        'Client-ID': this.clientId,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.data.data.length > 0 ? response.data.data[0] : null;
+  
+  }
+
+  async getStreamsByUser(userId: string): Promise<any[]> {
+    const url = `${this.baseUrl}/streams?user_id=${userId}`;
+    const accessToken = localStorage.getItem('twitchAccessToken');
+  
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          'Client-ID': this.clientId,
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+  
+      return response.data.data; // Devuelve los streams encontrados
+    } catch (error: any) {
+      console.error('Error fetching streams by user:', error.response?.data || error.message);
+      throw error;
+    }
   }
 }
