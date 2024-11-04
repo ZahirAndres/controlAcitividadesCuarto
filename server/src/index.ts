@@ -10,6 +10,8 @@ import rolesRoutes from './routes/rolesRoutes';
 import responsablesRoutes from './routes/responsablesRoutes';
 import reservasRoutes from './routes/reservasRoutes';
 import canchasRoutes from './routes/canchasRoutes'; // Agrega esta línea
+import twilioRoutes from './routes/twilioRouters'; // Ajusta la ruta según tu estructura de carpetas
+
 
 
 class Server {
@@ -33,6 +35,7 @@ class Server {
         this.app.use('/responsables',responsablesRoutes);
         this.app.use('/reservas',reservasRoutes);
         this.app.use('/canchas', canchasRoutes); 
+        this.app.use('/twilio', twilioRoutes);
     }
     start():void{
         this.app.listen(this.app.get('port'), () => {

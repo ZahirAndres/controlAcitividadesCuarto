@@ -24,6 +24,8 @@ class ResponsablesRoutes {
         this.router.get('/verificar-correo/:token', responsablesControllers_1.responsablesControllers.verificarToken);
         // Ruta para actualzar la latitud y longitud
         this.router.put('/usuarios/:idResp/ubicacion', responsablesControllers_1.responsablesControllers.updateUserLocation);
+        // Ruta para el telefono
+        this.router.put('/:idResp/telefono', responsablesControllers_1.responsablesControllers.updateTelefono); // Nueva ruta para actualizar el teléfono
     }
 }
 const responsableRoutes = new ResponsablesRoutes();

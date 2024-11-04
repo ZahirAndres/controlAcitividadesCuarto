@@ -351,5 +351,30 @@ class ResponsablesControllers {
             }
         });
     }
+    //Metodo para el telefono
+    updateTelefono(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { idResp } = req.params;
+            const { telefono } = req.body;
+            if (!telefono) {
+                res.status(400).json({ message: "El número de teléfono es requerido" });
+                return;
+            }
+            try {
+                const result = yield database_1.default.query("UPDATE responsable SET telefono = ? WHERE idResp = ?", [telefono, idResp]);
+                if (result.affectedRows > 0) {
+                    res.json({ message: "Número de teléfono actualizado" });
+                }
+                else {
+                    res.status(404).json({
+                        message: "Responsable no encontrado para actualizar el teléfono",
+                    });
+                }
+            }
+            catch (error) {
+                res.status(500).json({ message: "Error al actualizar el teléfono", error });
+            }
+        });
+    }
 }
 exports.responsablesControllers = new ResponsablesControllers();

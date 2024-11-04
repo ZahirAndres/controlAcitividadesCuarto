@@ -50,6 +50,7 @@
         <span style="padding: 3px; background-color: #31688cae;">Control de Actividades UTNG</span>
         <span style="padding: 3px; padding-left: 30px; display: flex;" *ngIf="isLoggedIn$ | async">{{ nombUsuario }} ({{ rol }}) <i class="bi bi-person-walking"></i></span>
         <button *ngIf="rol === 'Usuario'" mat-menu-item (click)="openForm()">Solicitar Ascenso</button>
+        <button mat-menu-item *ngIf="isLoggedIn$ | async" routerLink="/inicio/perfil">Ver más</button>
         <button mat-menu-item *ngIf="isLoggedIn$ | async" (click)="logout()">Cerrar sesión</button>
         <button mat-menu-item *ngIf="!(isLoggedIn$ | async)" routerLink="/ingresar">Ingresar</button>
       </mat-menu>

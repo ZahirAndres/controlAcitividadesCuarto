@@ -83,6 +83,8 @@ import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayud
 import { WeatherComponent } from './components/weather/weather.component';
 import { StreamComponent } from './components/stream/stream.component';
 import { SafePipe } from './safe.pipe';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
 
 
 
@@ -126,7 +128,9 @@ import { SafePipe } from './safe.pipe';
     AyudanosConocerteComponent,
     WeatherComponent,
     StreamComponent,
-    SafePipe    
+    SafePipe,
+    PerfilComponent,
+    ChatbotComponent    
   ],
   imports: [
     BrowserModule,
