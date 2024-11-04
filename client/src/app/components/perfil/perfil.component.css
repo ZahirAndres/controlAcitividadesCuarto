@@ -1,0 +1,172 @@
+.profile-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.profile-field {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.profile-field:hover {
+  background-color: #f8f9fa;
+}
+
+.field-label {
+  color: #6c757d;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.field-value {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+/* Phone editing section */
+.phone-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+select {
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  background-color: white;
+  font-size: 1rem;
+  min-width: 100px;
+}
+
+input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  flex: 1;
+  min-width: 200px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+/* Icons styling */
+mat-icon {
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 20px;
+}
+
+.edit-icon {
+  color: #4a90e2;
+}
+
+.edit-icon:hover {
+  background-color: rgba(74, 144, 226, 0.1);
+}
+
+.cancel-icon {
+  color: #dc3545;
+}
+
+.cancel-icon:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.warning-icon {
+  color: #ffc107;
+}
+
+.warning-icon:hover {
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.send-icon {
+  color: #28a745;
+}
+
+.send-icon:hover {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.save-icon {
+  color: #28a745;
+}
+
+.save-icon:hover {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Verification code section */
+.verification-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #4a90e2;
+}
+
+/* Animation for transitions */
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error state */
+.error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Success state */
+.success-message {
+  color: #28a745;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

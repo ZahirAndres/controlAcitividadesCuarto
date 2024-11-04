@@ -1,0 +1,79 @@
+<div class="profile-container" *ngIf="user">
+    <h2>Perfil de Usuario</h2>
+    
+    <div class="profile-field">
+      <div class="field-label">Nombre Completo</div>
+      <div class="field-value">{{ user.nombres }} {{ user.appPaterno }} {{ user.appMaterno }}</div>
+    </div>
+  
+    <div class="profile-field">
+      <div class="field-label">Correo Electrónico</div>
+      <div class="field-value">{{ user.correoElec }}</div>
+    </div>
+  
+    <div class="profile-field">
+      <div class="field-label">Teléfono</div>
+      <div class="phone-section">
+        <ng-container *ngIf="!isEditingPhone">
+          <div class="field-value">{{ user.telefono || 'No especificado' }}</div>
+          <mat-icon 
+            *ngIf="!user.telefono" 
+            class="warning-icon" 
+            (click)="showWarning('El número de teléfono necesita ser llenado')">
+            warning
+          </mat-icon>
+          <mat-icon 
+            class="edit-icon" 
+            (click)="enablePhoneEditing()">
+            edit
+          </mat-icon>
+        </ng-container>
+  
+        <ng-container *ngIf="isEditingPhone" class="fade-in">
+          <select [(ngModel)]="lada" class="lada-select">
+            <option *ngFor="let lada of ladas" [value]="lada">{{ lada }}</option>
+          </select>
+          <input [(ngModel)]="user.telefono" placeholder="Ingrese su número de teléfono" />
+          <mat-icon 
+            class="send-icon" 
+            (click)="sendVerificationCode()"
+            [matTooltip]="'Enviar código de verificación'">
+            send
+          </mat-icon>
+          <mat-icon 
+            class="cancel-icon" 
+            (click)="cancelEditing()"
+            [matTooltip]="'Cancelar edición'">
+            cancel
+          </mat-icon>
+        </ng-container>
+      </div>
+  
+      <div *ngIf="isVerificationCodeSent" class="verification-section fade-in">
+        <input [(ngModel)]="verificationCode" placeholder="Ingrese el código de verificación" />
+        <mat-icon 
+          class="save-icon" 
+          (click)="verifyAndSavePhone()"
+          [matTooltip]="'Verificar y guardar'">
+          save
+        </mat-icon>
+      </div>
+    </div>
+  
+    <div class="profile-field">
+      <div class="field-label">Número de Control</div>
+      <div class="field-value">{{ user.numControl }}</div>
+    </div>
+  
+    <div class="profile-field">
+      <div class="field-label">Rol</div>
+      <div class="field-value">{{ user.idRoles }}</div>
+    </div>
+  </div>
+  
+  <div class="profile-container" *ngIf="!user">
+    <div class="error-message">
+      <mat-icon>error_outline</mat-icon>
+      <span>No se encontró información del usuario.</span>
+    </div>
+  </div>

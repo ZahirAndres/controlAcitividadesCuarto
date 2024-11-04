@@ -26,7 +26,7 @@ class ResponsablesControllers {
             res
                 .status(500)
                 .json({ message: "Error al obtener el responsable", error });
-        }
+        } 
     }
 
     public async create(req: Request, resp: Response): Promise<void> {
@@ -364,6 +364,34 @@ class ResponsablesControllers {
             res.status(500).json({ message: "Error al actualizar la ubicación" });
         }
     }
+
+    //Metodo para el telefono
+    public async updateTelefono(req: Request, res: Response): Promise<void> {
+        const { idResp } = req.params;
+        const { telefono } = req.body;
+    
+        if (!telefono) {
+            res.status(400).json({ message: "El número de teléfono es requerido" });
+            return;
+        }
+    
+        try {
+            const result = await pool.query(
+                "UPDATE responsable SET telefono = ? WHERE idResp = ?",
+                [telefono, idResp]
+            );
+            if (result.affectedRows > 0) {
+                res.json({ message: "Número de teléfono actualizado" });
+            } else {
+                res.status(404).json({
+                    message: "Responsable no encontrado para actualizar el teléfono",
+                });
+            }
+        } catch (error) {
+            res.status(500).json({ message: "Error al actualizar el teléfono", error });
+        }
+    }
+    
 }
 
 export const responsablesControllers = new ResponsablesControllers();
