@@ -448,8 +448,4 @@ export class IngresarComponent implements AfterViewInit {
     this.particulasActivadas = !this.particulasActivadas; // Cambia el estado
   }
 
-
-
-
-
 }

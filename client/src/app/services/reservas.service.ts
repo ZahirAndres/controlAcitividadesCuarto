@@ -10,7 +10,7 @@ interface CheckReservaResponse {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class ReservasService {
   API_URI = 'http://localhost:3000/reservas'; //conexion
@@ -29,7 +29,6 @@ export class ReservasService {
 getReservaPorCancha(idCancha: String| number): Observable<Reservas[]>{
     return this.http.get<Reservas[]>(`${this.API_URI}/porCancha/${idCancha}`);
   }
-
 
   saveReserva(reserva: Reservas) {
     return this.http.post(`${this.API_URI}`, reserva).pipe(

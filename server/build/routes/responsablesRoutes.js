@@ -17,13 +17,15 @@ class ResponsablesRoutes {
         this.router.delete('/:idResp', responsablesControllers_1.responsablesControllers.delete);
         this.router.put('/:idResp', responsablesControllers_1.responsablesControllers.updateResponsable);
         this.router.put('/contrasenia/:idResp', responsablesControllers_1.responsablesControllers.updateContrasenia); // Nueva ruta para actualizar contraseña
-        // Nueva ruta para enviar correo de ascenso
+        // Nueva ruta para enviar correo de ascenso //Ruta para el reporte de pago
         this.router.post('/ascenso/correo', responsablesControllers_1.responsablesControllers.enviarCorreoAscenso);
         //Nueva ruta para verificar el correo
         this.router.post('/enviar-verificacion-correo', responsablesControllers_1.responsablesControllers.enviarCorreoVerificacion);
         this.router.get('/verificar-correo/:token', responsablesControllers_1.responsablesControllers.verificarToken);
         // Ruta para actualzar la latitud y longitud
         this.router.put('/usuarios/:idResp/ubicacion', responsablesControllers_1.responsablesControllers.updateUserLocation);
+        // Ruta para el telefono
+        this.router.put('/:idResp/telefono', responsablesControllers_1.responsablesControllers.updateTelefono); // Nueva ruta para actualizar el teléfono
     }
 }
 const responsableRoutes = new ResponsablesRoutes();

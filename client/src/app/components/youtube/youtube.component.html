@@ -1,0 +1,59 @@
+
+<div class="FBody">
+    <div class='top'></div>
+    <div class='text'>
+      <h1 class="titlep">Youtube | ZCGI</h1>
+    </div>
+    
+    
+    <div class="search-container">
+      
+      <div class="input-container">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar videos deportivos..." />
+        <button (click)="onSearch()"><i class="fas fa-search search-icon"></i></button>
+      </div>
+    </div>
+    
+    <div class="cont" *ngIf="selectedVideoId" >
+    <!-- Video seleccionado -->
+    <div  class="videoPlayer">
+      <h2>Reproduciendo Video</h2>
+      <iframe [src]="getVideoUrl(selectedVideoId)" frameborder="0" allowfullscreen></iframe>
+    </div></div>
+    <br><br><br><br><br><br><br><br><br>
+    <div *ngIf="comments.length > 0" class="comments-container">
+      <h3>Comentarios</h3>
+      <div *ngFor="let comment of comments" class="comment">
+        <h4>{{ comment.snippet.topLevelComment.snippet.authorDisplayName }}</h4>
+        <p>{{ comment.snippet.topLevelComment.snippet.textDisplay }}</p>
+      </div>
+    </div>
+    <!-- Información del Canal -->
+    <div class="separator"></div> <!-- Separador -->
+    <!-- Sección para videos regulares -->
+    <h2>Videos Regulares</h2>
+    <div class="video-container">
+      <div *ngFor="let video of videos" class="video-card" (click)="selectVideo(video.id.videoId)">
+        <img [src]="video.snippet.thumbnails.high.url" alt="Video Thumbnail" class="thumbnail">
+        <h3 class="title">{{ video.snippet.title }}</h3>
+        <p class="description">{{ video.snippet.description }}</p>
+      </div>
+    </div>
+    <div class="separator"></div> <!-- Separador -->
+    
+    <!-- Sección para Reels -->
+    <h2>Reels</h2>
+    <div class="video-container">
+      <div *ngFor="let reel of reels" class="video-card" (click)="selectVideo(reel.id.videoId)">
+        <img [src]="reel.snippet.thumbnails.high.url" alt="Reel Thumbnail" class="thumbnail">
+        <h3 class="title">{{ reel.snippet.title }}</h3>
+        <p class="description">{{ reel.snippet.description }}</p>
+      </div>
+    </div>
+    </div>
+    
+    <div class="floating-button">
+      <a routerLink="/inicio/inicio" aria-label="ARROW">
+        <i class="fas fa-arrow-left"></i> <!-- Ícono de flecha de retroceso -->
+      </a>
+    </div>

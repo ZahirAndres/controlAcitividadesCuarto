@@ -10,6 +10,7 @@ import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.compone
 import { CanchaEditComponent } from '../cancha-edit/cancha-edit.component';
 import { ResponsableService } from '../../services/responsable.service';
 import { WeatherService } from '../../services/weather.service'; // Asegúrate de que la ruta sea correcta
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cancha-list',
@@ -39,14 +40,16 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
     private canchaService: CanchaService,
     private dialog: MatDialog,
     private responsableService: ResponsableService,
-    private weatherService: WeatherService // Inyectar servicio de clima
+    private weatherService: WeatherService, // Inyectar servicio de clima
+    private router : Router
+
   ) {}
 
   ngOnInit(): void {
     this.getCanchas();
     this.responsableService.getUserId();
 
-    // Configura el intervalo para actualizar la ubicación solo si actualizar es true
+    // Intervalo para actualizar la ubicación solo si actualizar es true
     this.setupUpdateLocationInterval();
   }
 
@@ -195,4 +198,10 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
       console.error('Error obteniendo canchas cercanas', error);
     });
   }
+
+  verReservaPorCancha(idCancha: number | undefined) {
+    this.router.navigate(['/inicio/reservas'], { queryParams: { idCancha } });
+    console.log(idCancha);
+  }
+
 }

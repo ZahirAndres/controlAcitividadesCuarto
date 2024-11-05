@@ -1,0 +1,84 @@
+<div class="stream-dashboard">
+  <div class="dashboard-header">
+    <h2 class="dashboard-title">
+      <i class="fab fa-twitch"></i>
+      Panel de Transmisión
+    </h2>
+    
+    <button *ngIf="!accessToken" (click)="login()" class="btn-login">
+      <i class="fas fa-sign-in-alt"></i>
+      Conectar con Twitch
+    </button>
+  </div>
+
+  <div class="dashboard-content" *ngIf="accessToken">
+    <div class="stream-setup-panel">
+      <div class="input-group">
+        <label for="streamTitle">Título de la Transmisión</label>
+        <input 
+          type="text" 
+          id="streamTitle"
+          [(ngModel)]="streamTitle" 
+          placeholder="Ingresa el título de tu transmisión..."
+          [class.active]="streamTitle.length > 0">
+      </div>
+
+      <div class="tags-container">
+        <label>Etiquetas de la Transmisión</label>
+        <div class="tags-list">
+          <span class="tag" *ngFor="let tag of customTags">
+            {{ tag }}
+            <i class="fas fa-check"></i>
+          </span>
+        </div>
+      </div>
+
+      <button (click)="startStream()" class="btn-start" [disabled]="!streamTitle">
+        <i class="fas fa-broadcast-tower"></i>
+        Actualizar Información
+      </button>
+
+      <div class="notice">
+        <i class="fas fa-info-circle"></i>
+        <p>Configura tu software de transmisión (OBS) o inicia la transmisión desde tu aplicación de Twitch para comenzar en vivo</p>
+      </div>
+    </div>
+
+    <div class="stream-preview" *ngIf="activeStream">
+      <div class="stream-status">
+        <span class="live-badge">
+          <i class="fas fa-circle"></i> EN VIVO
+        </span>
+        <div class="stream-metrics">
+          <span class="metric">
+            <i class="fas fa-users"></i>
+            {{ activeStream.viewer_count }} espectadores
+          </span>
+          <span class="metric">
+            <i class="fas fa-gamepad"></i>
+            {{ activeStream.game_name }}
+          </span>
+        </div>
+      </div>
+
+      <div class="stream-player">
+        <iframe 
+          [src]="sanitizedUrl" 
+          height="500" 
+          width="100%" 
+          frameborder="0" 
+          scrolling="no" 
+          allowfullscreen="true">
+        </iframe>
+      </div>
+
+      <div class="stream-info">
+        <h3>{{ activeStream.title }}</h3>
+        <div class="stream-meta">
+          <span class="category">{{ activeStream.game_name }}</span>
+          <span class="viewers">{{ activeStream.viewer_count }} viendo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

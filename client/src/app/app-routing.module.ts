@@ -28,6 +28,8 @@ import { MapaGeneralComponent } from './components/mapa-general/mapa-general.com
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 import { WeatherComponent } from './components/weather/weather.component'; 
+import { YoutubeComponent } from './components/youtube/youtube.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 const routes: Routes = [
   { path: '', redirectTo: '/inicio/inicio', pathMatch: 'full' },
   {
@@ -49,7 +51,8 @@ const routes: Routes = [
       { path: 'roles', component: RolesComponent, canActivate: [RolBossGuard] },
       { path: 'contrato', component: ContratoComponent },
       { path: 'roles/edit/:idRoles', component: AdminRolesComponent, canActivate: [RolBossGuard] },
-      { path: 'mapa', component: MapaGeneralComponent }
+      { path: 'mapa', component: MapaGeneralComponent },
+      { path: 'perfil', component: PerfilComponent }
     ]
   },
   { path: 'ingresar', component: IngresarComponent },
@@ -59,7 +62,7 @@ const routes: Routes = [
   { path: 'login-facebook', component: FacebookComponent },
   { path: 'conocerte', component: AyudanosConocerteComponent },
   { path: 'weather' , component: WeatherComponent  },
-  
+  { path: 'youtub', component: YoutubeComponent }
 ];
 
 @NgModule({

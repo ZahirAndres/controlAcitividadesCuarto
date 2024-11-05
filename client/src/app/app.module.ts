@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgChartsModule } from 'ng2-charts';
+
 // Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { NgChartsModule } from 'ng2-charts';
 // Angular Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -76,13 +76,16 @@ import { DateFormatPipe } from './date-format.pipe';
 import { CanchaAddComponent } from './components/cancha-add/cancha-add.component';
 import { CanchaEditComponent } from './components/cancha-edit/cancha-edit.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-
 import { MapaGeneralComponent } from './components/mapa-general/mapa-general.component';
 import { CanchaInfoComponent } from './components/cancha-info/cancha-info.component';
 import { FacebookComponent } from './components/facebook/facebook.component';
 import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayudanos-conocerte.component';
 import { WeatherComponent } from './components/weather/weather.component';
-
+import { StreamComponent } from './components/stream/stream.component';
+import { SafePipe } from './safe.pipe';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { YoutubeComponent } from './components/youtube/youtube.component';
 
 
 
@@ -124,10 +127,14 @@ import { WeatherComponent } from './components/weather/weather.component';
     CanchaInfoComponent,
     FacebookComponent,
     AyudanosConocerteComponent,
-    WeatherComponent    
+    WeatherComponent,
+    StreamComponent,
+    SafePipe,
+    PerfilComponent,
+    ChatbotComponent,
+    YoutubeComponent    
   ],
   imports: [
-    
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -145,7 +152,6 @@ import { WeatherComponent } from './components/weather/weather.component';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -157,9 +163,7 @@ import { WeatherComponent } from './components/weather/weather.component';
     MatTooltipModule,
     MatProgressBarModule,
     NgChartsModule,
-    LeafletModule,
-    
-    
+    LeafletModule
   ],
   providers: [
     ReservasService,

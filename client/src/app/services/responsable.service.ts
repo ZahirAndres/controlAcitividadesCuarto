@@ -15,13 +15,14 @@ export class ResponsableService {
   // Validar correo
   private usuarioEncontradoSubject = new BehaviorSubject<boolean>(false);
   usuarioEncontrado$ = this.usuarioEncontradoSubject.asObservable();
+  snapshot: any;
 
   constructor(private http: HttpClient) {}
 
   private hasToken(): boolean {
     return !!localStorage.getItem('user');
   }
-
+ 
   getResponsables(): Observable<any> {
     return this.http.get(this.API_URI);
   }
@@ -40,6 +41,10 @@ export class ResponsableService {
 
   updateResponsable(idResp: string | number, updateResp: any): Observable<any> {
     return this.http.put(`${this.API_URI}/${idResp}`, updateResp);
+  }
+
+  updatePhone(idResp: string | number | undefined, newPhone: string | number | undefined): Observable<any> {
+    return this.http.put(`${this.API_URI}/${idResp}/telefono`, { telefono: newPhone });
   }
 
   getUserId(): number {
@@ -89,11 +94,11 @@ export class ResponsableService {
   getResponsableById(idResp: string | number): Observable<any> {
     return this.http.get(`${this.API_URI}/${idResp}`);
   }
-
+  
   // Enviar correo electrónico para ascenso
-  enviarCorreoAscenso(razon: string): Observable<any> {
+  enviarCorreoAscenso(razon: string, payerInfo: any): Observable<any> {
     const userId = this.getUserId(); 
-    return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId });
+    return this.http.post(`${this.API_URI}/ascenso/correo`, { razon, userId, payerInfo });
   }
 
   // Verificar el correo
