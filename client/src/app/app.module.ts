@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { NgChartsModule } from 'ng2-charts';
 // Angular Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -85,6 +85,8 @@ import { StreamComponent } from './components/stream/stream.component';
 import { SafePipe } from './safe.pipe';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
+import { YoutubeComponent } from './components/youtube/youtube.component';
+
 
 
 
@@ -130,6 +132,8 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
     StreamComponent,
     SafePipe,
     PerfilComponent,
+    ChatbotComponent,
+    YoutubeComponent    
     ChatbotComponent    
   ],
   imports: [
@@ -160,6 +164,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
     MatMenuModule,
     MatTooltipModule,
     MatProgressBarModule,
+    NgChartsModule,
     LeafletModule
   ],
   providers: [

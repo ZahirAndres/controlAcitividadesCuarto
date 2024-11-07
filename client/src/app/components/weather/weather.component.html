@@ -39,22 +39,86 @@
   
   </div>
 </div>
+
+
 <div class="button-container">
 <button class="toggle-button" (click)="toggleForecast()">
   <img src="https://img.icons8.com/material-outlined/24/000000/expand-arrow.png" alt="Icono de pronóstico" />
 </button>
 </div>
 
-<div *ngIf="showForecast && forecastData" class="forecast-list">
+
+<div *ngIf="showForecast && forecastData" class="forecast-fivedays">
+  <section>
+    <span>Pronóstico por los siguientes días...</span>
+  </section>
   
-  <div *ngFor="let forecast of forecastData.list" class="forecast-item">
-    <h3>{{ (forecast.dt * 1000) | date:'dd/MM/yyyy HH:mm' }}</h3>
-    <img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'" alt="Icono pronóstico">
-    <p>Temp: {{ forecast.main.temp }}°C</p>
-    <p>Descripción: {{ forecast.weather[0].description | titlecase }}</p>
- 
+  <div class="cardcl-container">
+    <ng-container *ngFor="let forecast of forecastData.list; let i = index">
+      <div class="cardcl" *ngIf="i % 8 === 0"> <!-- Mostrar cada 8 elementos -->
+        <div class="cardcl-body">
+          <h5 class="cardcl-title">{{ (forecast.dt * 1000) | date:'fullDate' }} {{ (forecast.dt * 1000) | date:'HH:mm' }}</h5> <!-- Día y hora -->
+          <img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'" 
+               alt="Icono pronóstico" class="weathercl-icon"/>
+          <p class="cardcl-text">{{ forecast.weather[0].description | titlecase }}</p> <!-- Descripción del clima -->
+          <p class="cardcl-text"><strong>Temp. Máx:</strong> {{ forecast.main.temp_max | number: '1.0-0' }} °</p>
+          <p class="cardcl-text"><strong>Temp. Mín:</strong> {{ forecast.main.temp_min | number: '1.0-0' }} °</p>
+     
+          
+
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>
+
+<div *ngIf="showForecast && forecastData" class="forecast-container">
+  <table class="forecast-table">
+    <thead>
+      <tr>
+        <th>Día y Hora</th>
+        <th>Icono</th>
+        <th>Descripción</th> <!-- Nueva columna de Descripción -->
+        <th>Temperatura Máxima (°)</th>
+        <th>Temperatura Mínima (°)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let forecast of forecastData.list; let i = index">
+        <ng-container *ngIf="i % 2 === 0"> <!-- Solo muestra filas para índices pares -->
+        <td>{{ (forecast.dt * 1000) | date:'EEE, HH:mm' }}</td> <!-- Día y hora -->
+        <td>
+          <img [src]="'https://openweathermap.org/img/wn/' + forecast.weather[0].icon + '@2x.png'" 
+               alt="Icono pronóstico" class="weather-icon"/>
+        </td>
+        <td>{{ forecast.weather[0].description | titlecase }}</td> <!-- Descripción del clima -->
+        <td class="max-temp">{{ forecast.main.temp_max | number: '1.0-0' }}</td>
+        <td class="min-temp">{{ forecast.main.temp_min | number: '1.0-0' }}</td>
+      </ng-container></tr>
+    </tbody>
+  </table>
+  <br><br>
+  <button class="buttonGraf" (click)="toggleGrafica()"><i class="fas fa-chart-line"></i> </button>
+  <div *ngIf="mostrarGrafica">
+  <div class="graf">
+    <canvas baseChart
+    [data]="lineChartData"
+    [options]="lineChartOptions"
+    [legend]="lineChartLegend"
+  
+    ></canvas>
+
+    <canvas baseChart
+    [data]="lineChartData"
+    [legend]="lineChartLegend"
+    [type]="lineChartType">
+  
+    ></canvas>
+  </div></div>
+</div>
+
+
+
 <a routerLink="/inicio/cancha" class="floating-button">
   <i class="fas fa-arrow-left"></i>
 </a>

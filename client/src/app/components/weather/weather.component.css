@@ -311,125 +311,6 @@ p {
 /* Estilo para la lista de pronóstico */
 /* Estilo para la lista de pronóstico */
 /* Estilo para la lista de pronóstico */
-.forecast-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px auto;
-}
-
-/* Estilo para cada ítem del pronóstico */
-.forecast-item {
-  background: linear-gradient(135deg, #ffffff, #ffffff);
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  margin: 15px;
-  padding: 20px;
-  flex: 1 1 200px;
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  z-index: 0;
-}
-
-/* Borde de neón animado */
-.forecast-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: 15px;
-  border: 3px solid transparent;
-  background: linear-gradient(135deg, rgba(0, 119, 255, 0.5), rgba(0, 255, 255, 0.5));
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6), 0 0 30px rgba(0, 255, 255, 0.4),
-              0 0 40px rgba(0, 255, 255, 0.3), 0 0 50px rgba(0, 255, 255, 0.2);
-  z-index: -1; /* Coloca el borde detrás del contenido */
-  animation: neon 2s infinite alternate; /* Animación para el efecto de neón */
-}
-
-/* Animación para el borde de neón */
-@keyframes neon {
-  0% {
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3), 0 0 20px rgba(0, 255, 255, 0.2),
-                0 0 30px rgba(0, 255, 255, 0.1);
-  }
-  100% {
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 30px rgba(0, 255, 255, 0.6),
-                0 0 40px rgba(0, 255, 255, 0.5);
-  }
-}
-
-/* Efecto de hover en las tarjetas */
-.forecast-item:hover {
-  transform: translateY(-10px); /* Levanta la tarjeta al pasar el mouse */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Sombra más intensa */
-}
-
-/* Título del pronóstico */
-.forecast-item h3 {
-  font-size: 1.5em;
-  margin: 10px 0;
-  color: #620b0b;
-}
-
-/* Imagen del pronóstico */
-.forecast-item img {
-  width: 80px;
-  height: 80px;
-  margin: 10px auto;
-}
-
-/* Estilo para el texto en el pronóstico */
-.forecast-item p {
-  margin: 5px 0;
-  color: #444;
-  font-size: 1.1em;
-}
-
-/* Adaptación a pantallas pequeñas */
-@media (max-width: 768px) {
-  .forecast-item {
-    flex: 1 1 90%;
-  }
-}
-/* Estilo base para cada ítem del pronóstico */
-.forecast-item {
-  background: #ffffff; /* Fondo blanco */
-  border-radius: 15px; /* Bordes redondeados */
-  border: 3px solid transparent; /* Borde transparente por defecto */
-  position: relative; /* Necesario para el pseudo-elemento */
-  margin: 15px; /* Margen entre tarjetas */
-  padding: 20px; /* Espaciado interno */
-  flex: 1 1 200px; /* Tarjeta adaptable */
-  text-align: center; /* Centrar texto dentro de la tarjeta */
-  transition: transform 0.3s, box-shadow 0.3s; /* Transiciones suaves */
-}
-
-/* Borde de neón animado */
-.forecast-item::before {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 15px; /* Mantiene la misma forma que la tarjeta */
-  background: transparent; /* Sin fondo */
-  border: 5px solid rgba(0, 255, 255, 0.7); /* Color del borde neón */
-  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3),
-              0 0 60px rgba(0, 255, 255, 0.1); /* Brillo del borde */
-  z-index: -1; /* Coloca el borde detrás del contenido */
-  transition: box-shadow 0.9s; /* Transición para el brillo */
-}
-
-/* Efecto al seleccionar (hover) */
-.forecast-item:hover::before {
-  box-shadow: 0 0 20px rgba(0, 255, 255, 1), 0 0 30px rgba(0, 255, 255, 0.7),
-              0 0 40px rgba(57, 87, 87, 0.5); /* Aumentar el brillo al pasar el mouse */
-}
 
 /* Estilo para el mapa */
 #map {
@@ -464,4 +345,247 @@ p {
 
 .icon {
   font-size: 24px; /* Tamaño del icono */
+}
+/* Estilos para la tabla de pronóstico del clima */
+/* Contenedor General */
+.forecast-container {
+  background: #f8f8f8; /* Fondo gris claro */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  max-width: 90%;
+  margin: auto;
+}
+
+/* Tabla */
+.forecast-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-top: 1rem;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Encabezado de la Tabla */
+.forecast-table thead {
+  background-color: #e2e2e2; /* Fondo gris suave */
+  color: #555;
+}
+
+.forecast-table th {
+  padding: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+}
+
+/* Celdas y Filas */
+.forecast-table td {
+  padding: 0.8rem;
+  text-align: center;
+  color: #666;
+  border-bottom: 1px solid #f1f1f1;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Animación al Pasar el Mouse sobre Filas */
+.forecast-table tbody tr:hover {
+  background-color: #f7f7f7; /* Fondo suave para hover */
+  transform: scale(1.02);
+}
+
+/* Temperaturas */
+.max-temp {
+  color: #d9534f; /* Rojo tenue para máxima */
+  font-weight: 600;
+}
+
+.min-temp {
+  color: #5bc0de; /* Azul suave para mínima */
+  font-weight: 600;
+}
+
+/* Icono de Clima */
+.weather-icon {
+  width: 45px;
+  height: 45px;
+  transition: transform 0.3s ease;
+}
+
+.weather-icon:hover {
+  transform: scale(1.1); /* Efecto de zoom */
+}
+
+/* Sombra suave para el icono */
+.weather-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+
+
+.graf {
+  width: 90%; /* Ocupar el 100% del contenedor */
+  height: 80%;
+  margin-top: 20px; /* Espaciado superior */
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.forecast-fivedays {
+  display: flex;
+  justify-content: center; /* Centrar el contenedor de cartas */
+  margin: 20px auto; /* Espaciado del contenedor */
+
+  width: 100%; /* Asegurarse de que el contenedor ocupe todo el ancho */
+  height: 400px;
+}
+
+.cardcl-container {
+  display: flex; /* Alinear las cartas horizontalmente */
+  gap: 20px; /* Espacio entre las cartas */
+  flex-wrap: nowrap; /* No permitir que las cartas se envuelvan */
+  width: 100%; /* Asegurarse de que el contenedor de cartas ocupe todo el ancho */
+}
+
+.cardcl {
+  flex: 1; /* Hacer que las cartas ocupen espacio equitativamente */
+  max-width: 100%; /* Asegurarse de que cada carta ocupe todo el ancho disponible */
+  border-radius: 20px; /* Bordes redondeados */
+  background: #ffffff; /* Color de fondo blanco */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Sombra más profunda */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para efectos */
+  text-align: center; /* Centrar texto dentro de la carta */
+  padding: 20px; /* Espaciado interno aumentado para mayor tamaño */
+  overflow: hidden; /* Ocultar desbordamiento */
+  min-width: 250px; /* Ancho mínimo para evitar cartas demasiado estrechas */
+  position: relative; /* Para el efecto de borde */
+  z-index: 1; /* Para el efecto de borde */
+}
+
+.cardcl:hover {
+  transform: translateY(-8px) scale(1.03); /* Efecto de elevación y ampliación al pasar el mouse */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2); /* Sombra más intensa al hacer hover */
+}
+
+.cardcl-body {
+  padding: 10px; /* Espaciado interno */
+}
+
+.cardcl-title {
+  font-size: 1.4rem; /* Tamaño de fuente más grande para el título */
+  margin-bottom: 15px; /* Espaciado inferior */
+  font-weight: bold; /* Negrita */
+  color: #333; /* Color del texto */
+  text-transform: capitalize; /* Texto en mayúsculas para mayor impacto */
+}
+
+.weathercl-icon {
+  width: 80px; /* Tamaño del icono del clima */
+  height: auto; /* Mantener proporción del icono */
+  margin: 15px 0; /* Espaciado superior e inferior */
+  transition: transform 0.3s ease; /* Transición suave para el icono */
+}
+
+.cardcl:hover .weathercl-icon {
+  transform: scale(1.2); /* Aumentar el icono al hacer hover */
+}
+
+.cardcl-text {
+  margin: 8px 0; /* Espaciado vertical entre los textos */
+  font-size: 1.1rem; /* Tamaño de fuente más grande */
+  color: #555; /* Color del texto */
+}
+
+.cardcl-text strong {
+  color: #333; /* Color más oscuro para las etiquetas */
+}
+
+/* Efecto de borde al hacer hover */
+.cardcl:hover::before {
+  content: '';
+  position: absolute;
+  top: -5px; 
+  left: -5px; 
+  right: -5px; 
+  bottom: -5px; 
+  border-radius: 20px; /* Bordes redondeados */
+  border: 2px solid #4a90e2; /* Color del borde */
+  opacity: 0.6; /* Opacidad del borde */
+  transition: opacity 0.3s ease; /* Transición suave para el borde */
+  z-index: -1; /* Colocar detrás del contenido */
+}
+
+/* Estilo adicional para mejorar la apariencia general */
+.cardcl {
+  border: 1px solid #e0e0e0; /* Borde ligero */
+}
+
+.cardcl-body {
+  position: relative; /* Para efectos adicionales */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semitransparente */
+  border-radius: 20px; /* Bordes redondeados en el interior */
+  backdrop-filter: blur(10px); /* Efecto de desenfoque en el fondo */
+}
+section {
+
+  background: coral;
+}
+section span {
+  margin: 0;
+  font-size: 50px;
+  color: #f0f8ff;
+  text-align: center;
+  line-height: 1;
+  font-family: Impact;
+  padding-top: 20%;
+  display: block;
+  font-weight: 700;
+}
+
+/* Estilo básico del botón */
+.buttonGraf {
+  background-color: #24d4c3; /* Color de fondo inicial */
+  color: white; /* Color de texto */
+  padding: 10px 20px; /* Espaciado interno */
+  font-size: 40px; /* Tamaño de fuente */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Manito al pasar */
+  transition: all 0.3s ease; /* Transición para efectos suaves */
+  box-shadow: 0px 4px 55px rgba(0, 0, 0, 0.2); /* Sombra */
+  position: relative;
+  left:  50%;
+  
+}
+
+/* Efecto al pasar el cursor */
+.buttonGraf:hover {
+  background-color: #897afe; /* Cambia el color de fondo */
+  transform: scale(1.1); /* Escala el botón */
+}
+
+/* Efecto al hacer clic */
+.buttonGraf:active {
+  transform: scale(0.95); /* Reduce un poco el tamaño al hacer clic */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Cambia la sombra */
+}
+
+/* Efecto de entrada animada cuando el botón aparece en pantalla */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.buttonGraf {
+  animation: fadeIn 0.5s ease-out; /* Aplica la animación de entrada */
 }
