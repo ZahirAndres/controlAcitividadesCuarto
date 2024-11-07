@@ -90,6 +90,7 @@ import { YoutubeComponent } from './components/youtube/youtube.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -133,6 +134,7 @@ import { YoutubeComponent } from './components/youtube/youtube.component';
     PerfilComponent,
     ChatbotComponent,
     YoutubeComponent    
+    ChatbotComponent    
   ],
   imports: [
     BrowserModule,
