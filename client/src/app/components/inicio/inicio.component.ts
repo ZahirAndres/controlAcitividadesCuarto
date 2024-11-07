@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TwitchService } from '../../services/twitch.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ChatbotComponent } from "../chatbot/chatbot.component";
 
 @Component({
   selector: 'app-inicio',
@@ -13,7 +14,8 @@ import { trigger, transition, style, animate } from '@angular/animations';
         animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ])
-  ]
+  ],
+ 
 })
 export class InicioComponent implements OnInit {
   activeStream: any = null;

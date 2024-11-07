@@ -86,6 +86,8 @@ import { SafePipe } from './safe.pipe';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { YoutubeComponent } from './components/youtube/youtube.component';
+import { NewsComponent } from './components/news/news.component';
+
 
 
 
@@ -132,7 +134,12 @@ import { YoutubeComponent } from './components/youtube/youtube.component';
     SafePipe,
     PerfilComponent,
     ChatbotComponent,
-    YoutubeComponent    
+    YoutubeComponent,
+    NewsComponent,
+
+ 
+
+    
   ],
   imports: [
     BrowserModule,

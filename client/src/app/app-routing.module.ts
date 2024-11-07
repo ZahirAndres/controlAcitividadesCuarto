@@ -30,6 +30,9 @@ import { AyudanosConocerteComponent } from './components/ayudanos-conocerte/ayud
 import { WeatherComponent } from './components/weather/weather.component'; 
 import { YoutubeComponent } from './components/youtube/youtube.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { NewsComponent } from './components/news/news.component';
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/inicio/inicio', pathMatch: 'full' },
   {
@@ -62,7 +65,9 @@ const routes: Routes = [
   { path: 'login-facebook', component: FacebookComponent },
   { path: 'conocerte', component: AyudanosConocerteComponent },
   { path: 'weather' , component: WeatherComponent  },
-  { path: 'youtub', component: YoutubeComponent }
+  { path: 'youtub', component: YoutubeComponent },
+  { path: 'news', component: NewsComponent },
+
 ];
 
 @NgModule({

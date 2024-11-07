@@ -1,0 +1,142 @@
+/* Estilo general del contenedor */
+.news-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 90%;
+    margin: 0 auto;
+    padding: 40px;
+    background-color: #0a1a2a; /* Fondo oscuro con tono azul */
+    color: #f4f4f4; /* Texto claro */
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.7); /* Sombra suave */
+}
+
+/* Título de la sección */
+.title {
+    font-size: 45px;
+    color: #ffffff; /* Verde brillante */
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* Sombra en el título */
+}
+
+/* Estilos del selector de número de noticias */
+.limit-options {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 25px;
+    font-size: 18px;
+    color: #ddd;
+}
+
+.limit-options label {
+    margin-right: 15px;
+    font-weight: bold;
+}
+
+.limit-options input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #1db954; /* Borde verde */
+    border-radius: 8px;
+    background-color: #222; /* Fondo oscuro para los inputs */
+    color: #fff;
+    width: 100px;
+    text-align: center;
+}
+
+.limit-options input:focus {
+    outline: none;
+    border: 2px solid #1db954;
+}
+
+/* Estilos de la lista de noticias */
+.news-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.news-item {
+    background-color: #1e2a3a; /* Fondo oscuro azul-gris */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 35px rgba(0, 0, 0, 0.8);
+}
+
+/* Imagen de la noticia */
+.news-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.news-item:hover .news-image img {
+    transform: scale(1.05);
+}
+
+/* Contenido de la noticia */
+.news-content h2 {
+    font-size: 26px;
+    color: #86afe5; /* Verde brillante */
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Sombra ligera */
+}
+
+.news-content p {
+    font-size: 16px;
+    color: #ddd;
+    margin-bottom: 15px;
+}
+
+.news-content a {
+    font-size: 18px;
+    color: #b4d1f8; /* Verde brillante */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-content a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Estilo del mensaje cuando no hay noticias */
+.no-news {
+    text-align: center;
+    font-size: 22px;
+    color: #f39c12; /* Amarillo brillante */
+    padding: 25px;
+    background-color: #444;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* Responsive: ajustar el diseño en pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+    .news-list {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .news-list {
+        grid-template-columns: 1fr;
+    }
+    .limit-options {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
