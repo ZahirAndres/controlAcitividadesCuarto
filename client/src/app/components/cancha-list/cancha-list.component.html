@@ -1,3 +1,27 @@
+<div class="search-section">
+    <h2>Buscador</h2>
+    <input 
+      type="text" 
+      [(ngModel)]="searchTermCustom" 
+   
+      placeholder="Escribe con Search..."
+      class="search-input"
+    />
+    
+    <button (click)="searchCustom()" class="search-button"> <i class="fas fa-search"></i></button>
+  </div>
+
+  <div *ngIf="customSearchResults.length > 0" class="search-results">
+    <h3>Resultados de la búsqueda personalizada</h3>
+    <ul>
+      <li *ngFor="let result of customSearchResults">
+        <a [href]="result.link" target="_blank">{{ result.title }}</a>
+        <p>{{ result.snippet }}</p>
+      </li>
+    </ul>
+  </div>
+<br><br>
+
 <div class="container mt-4">
   <button mat-fab color="primary" class="floating-button" (click)="openAddDialog()">
     <i class="bi bi-plus"></i> 
@@ -90,8 +114,10 @@
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
   </div>
-  <app-stream></app-stream>
-</div>
+
+
+<app-stream></app-stream>
+  
 
 <button routerLink="/weather" mat-fab color="primary" class="floating-button-cloud">
   <i class="bi bi-cloud"></i>

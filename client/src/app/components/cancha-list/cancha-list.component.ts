@@ -11,11 +11,15 @@ import { CanchaEditComponent } from '../cancha-edit/cancha-edit.component';
 import { ResponsableService } from '../../services/responsable.service';
 import { WeatherService } from '../../services/weather.service'; // Asegúrate de que la ruta sea correcta
 import { Router } from '@angular/router';
+import { SearchService } from '../../services/search.service';
+import { StreamComponent } from "../stream/stream.component";
 
 @Component({
   selector: 'app-cancha-list',
   templateUrl: './cancha-list.component.html',
   styleUrls: ['./cancha-list.component.css'],
+
+
 })
 export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
   canchas: Cancha[] = [];
@@ -30,18 +34,22 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
   dataSource!: MatTableDataSource<Cancha>;
   actualizar: boolean = true; // Cambiar a booleano
+  searchTerm: string = '';
+  searchTermCustom: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   private updateLocationInterval: any; // Almacena el identificador del intervalo
+  customSearchResults: any[] = [];
 
   constructor(
     private canchaService: CanchaService,
     private dialog: MatDialog,
     private responsableService: ResponsableService,
     private weatherService: WeatherService, // Inyectar servicio de clima
-    private router : Router
+    private router : Router,
+    private  searchService : SearchService,
 
   ) {}
 
@@ -203,5 +211,19 @@ export class CanchaListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/inicio/reservas'], { queryParams: { idCancha } });
     console.log(idCancha);
   }
+  // Método para buscar en Google Custom Search API
+// Método para buscar en Google Custom Search API
+searchCustom(): void {
+  if (this.searchTermCustom) {
+    this.searchService.search(this.searchTermCustom).subscribe(
+      (data) => {
+        this.customSearchResults = data.items || [];
+      },
+      (error) => {
+        console.error('Error en la búsqueda personalizada:', error);
+      }
+    );
+  }
+}
 
 }

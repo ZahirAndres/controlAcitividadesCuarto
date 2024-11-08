@@ -1,0 +1,28 @@
+<div class="news-container">
+    <h1 class="title">Noticias Deportivas</h1>
+  
+    <!-- Selector de Número de Noticias -->
+    <div class="limit-options">
+      <label for="limit">Número de Noticias: </label>
+      <input type="number" [(ngModel)]="limit" (change)="onLimitChange(limit)" min="1" />
+    </div>
+  
+    <div *ngIf="sportsNews.length > 0" class="news-list">
+      <div *ngFor="let news of sportsNews" class="news-item">
+        <div class="news-image">
+          <img *ngIf="news.urlToImage" [src]="news.urlToImage" alt="Imagen de la noticia" />
+        </div>
+        <div class="news-content">
+          <h2>{{ news.title }}</h2>
+          <p>{{ news.description }}</p>
+          <a [href]="news.url" target="_blank">Leer más</a>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mensaje de no noticias -->
+    <div *ngIf="sportsNews.length === 0" class="no-news">
+      <p>No hay noticias disponibles en este momento.</p>
+    </div>
+  </div>
+  
