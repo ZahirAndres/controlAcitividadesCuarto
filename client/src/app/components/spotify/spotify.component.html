@@ -1,2 +1,30 @@
-<p>spotify works!</p>
-    
+<div *ngIf="!playlists">
+    <a [href]="authUrl">Iniciar sesión con Spotify</a>
+  </div>
+  
+  <div *ngIf="playlists">
+    <h2>Listas de Reproducción</h2>
+    <ul>
+      <li *ngFor="let playlist of playlists">
+        <img [src]="playlist.images[0]?.url" alt="{{ playlist.name }}" width="50">
+        <strong>{{ playlist.name }}</strong>
+      </li>
+    </ul>
+  
+    <h3>Crear nueva lista de reproducción</h3>
+    <form (ngSubmit)="createPlaylist()">
+      <label for="name">Nombre:</label>
+      <input type="text" id="name" [(ngModel)]="playlistName" name="name" required>
+      <br>
+      <label for="description">Descripción:</label>
+      <input type="text" id="description" [(ngModel)]="playlistDescription" name="description">
+      <br>
+      <label>
+        <input type="checkbox" [(ngModel)]="isPublic" name="isPublic">
+        Público
+      </label>
+      <br>
+      <button type="submit">Crear</button>
+    </form>
+  </div>
+  
