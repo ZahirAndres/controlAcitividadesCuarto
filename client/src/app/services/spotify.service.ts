@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,29 @@ export class SpotifyService {
 
   constructor(private http: HttpClient) { }
 
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(() => new Error(errorMessage));
+  }
+
   getAuthUrl(): string {
-    const scopes = 'user-read-private user-read-email playlist-read-private playlist-modify-public playlist-modify-private';
+    const scopes = [
+      'user-read-private',
+      'user-read-email',
+      'playlist-read-private',
+      'playlist-modify-public',
+      'playlist-modify-private',
+      'user-library-read',
+      'streaming'
+    ].join(' ');
+
     return `https://accounts.spotify.com/authorize?response_type=code&client_id=${this.clientId}&scope=${encodeURIComponent(scopes)}&redirect_uri=${encodeURIComponent(this.redirectUri)}`;
   }
-  
 
   getAuthToken(code: string): Observable<any> {
     const body = new URLSearchParams();
@@ -31,7 +50,8 @@ export class SpotifyService {
       'Authorization': 'Basic ' + btoa(this.clientId + ':' + this.clientSecret)
     });
 
-    return this.http.post(this.authUrl, body.toString(), { headers });
+    return this.http.post(this.authUrl, body.toString(), { headers })
+      .pipe(catchError(this.handleError));
   }
 
   getUserPlaylists(token: string): Observable<any> {
@@ -39,10 +59,26 @@ export class SpotifyService {
       'Authorization': 'Bearer ' + token
     });
 
-    return this.http.get(`${this.apiUrl}/me/playlists`, { headers });
+    return this.http.get(`${this.apiUrl}/me/playlists`, { headers })
+      .pipe(catchError(this.handleError));
   }
 
-  createPlaylist(token: string, userId: string, playlistName: string, playlistDescription: string = '', isPublic: boolean = false): Observable<any> {
+  getPlaylistTracks(token: string, playlistId: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this.http.get(`${this.apiUrl}/playlists/${playlistId}/tracks`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  createPlaylist(
+    token: string, 
+    userId: string, 
+    playlistName: string, 
+    playlistDescription: string = '', 
+    isPublic: boolean = false
+  ): Observable<any> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer ' + token,
       'Content-Type': 'application/json'
@@ -54,7 +90,8 @@ export class SpotifyService {
       public: isPublic
     };
   
-    return this.http.post(`${this.apiUrl}/users/${userId}/playlists`, body, { headers });
+    return this.http.post(`${this.apiUrl}/users/${userId}/playlists`, body, { headers })
+      .pipe(catchError(this.handleError));
   }
   
   getUserInfo(token: string): Observable<any> {
@@ -62,6 +99,30 @@ export class SpotifyService {
       'Authorization': 'Bearer ' + token
     });
 
-    return this.http.get(`${this.apiUrl}/me`, { headers });
+    return this.http.get(`${this.apiUrl}/me`, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  addTracksToPlaylist(token: string, playlistId: string, tracks: string[]): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    });
+    
+    const body = {
+      uris: tracks
+    };
+    
+    return this.http.post(`${this.apiUrl}/playlists/${playlistId}/tracks`, body, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  getTrackInfo(token: string, trackId: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer ' + token
+    });
+
+    return this.http.get(`${this.apiUrl}/tracks/${trackId}`, { headers })
+      .pipe(catchError(this.handleError));
   }
 }

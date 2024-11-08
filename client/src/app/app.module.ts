@@ -88,6 +88,7 @@ import { ChatbotComponent } from './components/chatbot/chatbot.component';
 import { YoutubeComponent } from './components/youtube/youtube.component';
 import { NewsComponent } from './components/news/news.component';
 import { SpotifyComponent } from './components/spotify/spotify.component';
+import { PlaylistDetailComponent } from './components/spotify/playlist-detail/playlist-detail.component';
 
 
 
@@ -140,7 +141,7 @@ import { SpotifyComponent } from './components/spotify/spotify.component';
     NewsComponent,
     YoutubeComponent, 
     ChatbotComponent, 
-    SpotifyComponent 
+    SpotifyComponent, PlaylistDetailComponent 
   ],
   imports: [
     BrowserModule,
@@ -171,7 +172,7 @@ import { SpotifyComponent } from './components/spotify/spotify.component';
     MatTooltipModule,
     MatProgressBarModule,
     NgChartsModule,
-    LeafletModule
+    LeafletModule     
   ],
   providers: [
     ReservasService,
