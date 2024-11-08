@@ -1,2 +1,87 @@
-<p>spotify works!</p>
-    
+<div class="spotify-container">
+    <div class="header">
+        <h2>Spotify Playlist Manager</h2>
+    </div>
+
+    <div *ngIf="!token" class="login-section">
+        <a [href]="authUrl" class="spotify-login-btn">
+            <i class="fab fa-spotify"></i> Connect with Spotify
+        </a>
+    </div>
+
+    <div *ngIf="token">
+        <div class="content-wrapper">
+            <div class="sidebar">
+                <div class="create-playlist-section">
+                    <h3>Create New Playlist</h3>
+                    <div class="form-group">
+                        <input type="text" [(ngModel)]="playlistName" placeholder="Playlist Name" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <textarea [(ngModel)]="playlistDescription" placeholder="Playlist Description"
+                            class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" [(ngModel)]="isPublic" id="isPublic">
+                        <label for="isPublic">Make playlist public</label>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" #trackInput placeholder="Paste Spotify track link or URI"
+                            class="form-control">
+                        <div class="input-help">
+                            Accept formats:
+                            <ul>
+                                <li>Spotify URI: spotify:track:xxx</li>
+                                <li>Spotify Link: https://open.spotify.com/track/xxx</li>
+                            </ul>
+                        </div>
+                        <button (click)="addTrackUri(trackInput.value); trackInput.value=''" class="btn btn-secondary">
+                            Add Track
+                        </button>
+                    </div>
+
+                    <div *ngIf="trackUris.length > 0" class="track-list">
+                        <h4>Added Tracks:</h4>
+                        <div *ngFor="let uri of trackUris; let i = index" class="track-item">
+                            <span>{{ getTrackInfo(uri) | async }}</span>
+                            <button (click)="removeTrack(i)" class="btn btn-secondary">Remove</button>
+                        </div>
+                    </div>
+
+                    <button (click)="createPlaylist()" class="btn" [disabled]="!playlistName || trackUris.length === 0">
+                        Create Playlist
+                    </button>
+                </div>
+
+                <div *ngIf="successMessage" class="success-message">
+                    {{ successMessage }}
+                </div>
+
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+
+                <h3>Your Playlists</h3>
+                <div class="playlists-grid">
+                    <div *ngFor="let playlist of playlists" class="playlist-card" (click)="selectPlaylist(playlist)"
+                        [class.selected]="selectedPlaylist?.id === playlist.id">
+                        <img *ngIf="playlist.images.length > 0" [src]="playlist.images[0]?.url" [alt]="playlist.name"
+                            class="playlist-image">
+                        <div *ngIf="playlist.images.length > 0" class="playlist-name">{{ playlist.name }}</div>
+                        <div *ngIf="playlist.images.length > 0" class="playlist-description">{{ playlist.tracks.total }}
+                            tracks</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="main-content">
+                <app-playlist-detail *ngIf="selectedPlaylist" [token]="token" [playlist]="selectedPlaylist">
+                </app-playlist-detail>
+            </div>
+        </div>
+    </div>
+</div>
