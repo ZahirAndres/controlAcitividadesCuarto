@@ -1,44 +1,44 @@
 <div class="playlist-detail" *ngIf="playlist">
-    <div class="playlist-header">
-      <img [src]="playlist.images[0]?.url || 'assets/default-playlist.png'" 
-           [alt]="playlist.name" 
-           class="playlist-cover">
-      <div class="playlist-info">
-        <h2>{{ playlist.name }}</h2>
-        <p>{{ playlist.description }}</p>
-        <p class="track-count">{{ tracks.length }} tracks</p>
-      </div>
-    </div>
-  
-    <div class="tracks-container">
-      <div *ngFor="let track of tracks" 
-           class="track-item" 
-           [class.playing]="currentTrack?.id === track.id && isPlaying">
-        <div class="track-info">
-          <img [src]="track.album?.images[2]?.url" 
-               [alt]="track.name" 
-               class="track-thumbnail">
-          <div class="track-details">
-            <div class="track-name">{{ track.name }}</div>
-            <div class="track-artist">{{ track.artists[0]?.name }}</div>
-            <div class="track-album">{{ track.album?.name }}</div>
-          </div>
-        </div>
-        <div class="track-controls">
-          <span class="preview-status" *ngIf="!track.preview_url">Preview not available</span>
-          <button class="play-button" 
-                  (click)="playPreview(track)"
-                  [disabled]="!track.preview_url"
-                  [class.playing]="currentTrack?.id === track.id && isPlaying">
-            <i class="fas" 
-               [class.fa-play]="!(currentTrack?.id === track.id && isPlaying)"
-               [class.fa-pause]="currentTrack?.id === track.id && isPlaying"></i>
-          </button>
-        </div>
-      </div>
-    </div>
-  
-    <div *ngIf="previewUrl" class="spotify-preview">
-      <iframe [src]="previewUrl" width="50px" height="10px" frameborder="0" allow="encrypted-media"></iframe>
+  <div class="playlist-header">
+    <img [src]="playlist.images[0]?.url || 'assets/default-playlist.png'" 
+         [alt]="playlist.name" 
+         class="playlist-cover">
+    <div class="playlist-info">
+      <h2>{{ playlist.name }}</h2>
+      <p>{{ playlist.description }}</p>
+      <p class="track-count">{{ tracks.length }} pistas</p>
     </div>
   </div>
+
+  <div class="tracks-container">
+    <div *ngFor="let track of tracks" 
+         class="track-item" 
+         [class.playing]="currentTrack?.id === track.id && isPlaying">
+      <div class="track-info">
+        <img [src]="track.album?.images[2]?.url" 
+             [alt]="track.name" 
+             class="track-thumbnail">
+        <div class="track-details">
+          <div class="track-name">{{ track.name }}</div>
+          <div class="track-artist">{{ track.artists[0]?.name }}</div>
+          <div class="track-album">{{ track.album?.name }}</div>
+        </div>
+      </div>
+      <div class="track-controls">
+        <span class="preview-status" *ngIf="!track.preview_url">Vista previa no disponible</span>
+        <button class="play-button" 
+                (click)="playPreview(track)"
+                [disabled]="!track.preview_url"
+                [class.playing]="currentTrack?.id === track.id && isPlaying">
+          <i class="fas" 
+             [class.fa-play]="!(currentTrack?.id === track.id && isPlaying)"
+             [class.fa-pause]="currentTrack?.id === track.id && isPlaying"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="previewUrl" class="spotify-preview">
+    <iframe [src]="previewUrl" width="50px" height="10px" frameborder="0" allow="encrypted-media"></iframe>
+  </div>
+</div>
